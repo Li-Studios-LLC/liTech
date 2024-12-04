@@ -18,6 +18,12 @@
 #define LITECH_IMPORT
 #endif
 
+#ifdef _DEBUG
+#define LITECH_DEBUG
+#else
+#define LITECH_RELEASE
+#endif
+
 class liPlaceholder { };
 
 #endif
