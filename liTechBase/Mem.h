@@ -1,7 +1,7 @@
 #ifndef LITECHBASE_MEM_H
 #define LITECHBASE_MEM_H
 #include "Typedefs.h"
-#include <utility>
+#include <type_traits>
 
 struct memoryStats_t {
     ulong_t allocs;
