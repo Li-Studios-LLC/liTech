@@ -4,7 +4,7 @@
 #define LITECH_INITIAL_POOL_SIZE 32
 
 template <typename T>
-class liPool {
+class LITECH_EXPORT liPool {
 public:
     liPool(ulong_t initialSize = LITECH_INITIAL_POOL_SIZE);
     liPool(const liPool&) = delete;

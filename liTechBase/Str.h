@@ -2,7 +2,7 @@
 #define LITECHBASE_STR_H
 #include "Typedefs.h"
 
-class liStr {
+class LITECH_EXPORT liStr {
 public:
     liStr();
     liStr(const char* str);

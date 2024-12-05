@@ -4,7 +4,7 @@
 #define LILIST_START_SIZE 0x10
 
 template <typename T>
-class liList {
+class LITECH_EXPORT liList {
 public:
     liList();
     liList(T* buffer, ulong_t size);
