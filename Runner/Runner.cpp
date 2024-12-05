@@ -1,4 +1,4 @@
-#include <liTechBase/Lib.h>
+#include <liTechFramework/Typedefs.h>
 #include <SDL3/SDL.h>
 
 static struct runnerVariables_t {

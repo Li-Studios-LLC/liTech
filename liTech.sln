@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "liTechBase", "liTechBase\li
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Runner", "Runner\Runner.vcxproj", "{A453A02A-2E61-4DEC-92CD-1BE93155AE18}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "liTechFramework", "liTechFramework\liTechFramework.vcxproj", "{FD92DCC0-4CE2-43AE-8301-7A02AAABB0E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{A453A02A-2E61-4DEC-92CD-1BE93155AE18}.Debug|x64.Build.0 = Debug|x64
 		{A453A02A-2E61-4DEC-92CD-1BE93155AE18}.Release|x64.ActiveCfg = Release|x64
 		{A453A02A-2E61-4DEC-92CD-1BE93155AE18}.Release|x64.Build.0 = Release|x64
+		{FD92DCC0-4CE2-43AE-8301-7A02AAABB0E5}.Debug|x64.ActiveCfg = Debug|x64
+		{FD92DCC0-4CE2-43AE-8301-7A02AAABB0E5}.Debug|x64.Build.0 = Debug|x64
+		{FD92DCC0-4CE2-43AE-8301-7A02AAABB0E5}.Release|x64.ActiveCfg = Release|x64
+		{FD92DCC0-4CE2-43AE-8301-7A02AAABB0E5}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
