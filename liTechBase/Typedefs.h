@@ -13,6 +13,8 @@
 #define LITECH_REVISION 0
 
 #ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
 #define LITECH_WIN32
 #define LITECH_INLINE __forceinline
 #define LITECH_EXPORT __declspec(dllexport)

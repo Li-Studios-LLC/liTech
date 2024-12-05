@@ -1,7 +1,6 @@
 #include "Assert.h"
 
 #ifdef _WIN32
-#include <Windows.h>
 
 void liAssert::Break() {
     DebugBreak();

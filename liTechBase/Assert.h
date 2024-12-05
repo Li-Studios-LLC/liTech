@@ -8,7 +8,7 @@ public:
     static void Assert(bool expr, const char* message);
 };
 
-#ifdef _DEBUG
+#ifdef LITECH_DEBUG
 #define LITECH_ASSERT(expr, message) liAssert::Assert(expr, message)
 #else
 #define LITECH_ASSERT(expr, message)
