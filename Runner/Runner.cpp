@@ -1,7 +1,7 @@
 #include <liTechBase/Lib.h>
 #include <SDL3/SDL.h>
 
-static struct RunnerVariables {
+static struct runnerVariables_t {
 	bool gameRunning;
 } variables;
 
