@@ -14,11 +14,11 @@ public:
     void Dealloc(T* object);
     void Reset();
 
-    size_t InitialSize() const { return initialSize; }
-    size_t PoolSize() const { return elements.Size(); }
-    bool IsOccupied(size_t index) const { return freeList[index]; }
-    T* operator[](size_t index) { return elements[index]; }
-    T* operator[](size_t index) const { return elements[index]; }
+    ulong_t InitialSize() const { return initialSize; }
+    ulong_t PoolSize() const { return elements.Size(); }
+    bool IsOccupied(ulong_t index) const { return freeList[index]; }
+    T* operator[](ulong_t index) { return elements[index]; }
+    T* operator[](ulong_t index) const { return elements[index]; }
 private:
     liList<T*> elements;
     liList<bool> freeList;
