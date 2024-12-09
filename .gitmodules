@@ -1,6 +1,3 @@
-[submodule "Dependencies/Inc/stb"]
-	path = Dependencies/Inc/stb
-	url = https://github.com/nothings/stb.git
-[submodule "Dependencies/Inc/glm"]
-	path = Dependencies/Inc/glm
-	url = https://github.com/g-truc/glm.git
+[submodule "liTech-dependencies"]
+	path = liTech-dependencies
+	url = https://github.com/Li-Studios-LLC/liTech-dependencies.git
