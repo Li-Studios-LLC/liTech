@@ -1,4 +1,4 @@
 project "liTechBase"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
     files { "**.cpp", "**.h" }
