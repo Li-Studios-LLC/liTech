@@ -1,4 +1,2 @@
 .vs/
-*Build/
-[Ii]ntermediates/
-*.user
+Build/
