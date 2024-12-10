@@ -1,8 +1,7 @@
 #include "LocalFileSystem.h"
-#include <filesystem>
 
 liLocalFileSystem::liLocalFileSystem() {
-	this->base = std::filesystem::current_path().string().c_str();
+	this->base = SDL_GetCurrentDirectory();
 	base.Append('/');
 	this->localLength = strlen(LITECH_LOCALFS_PREFIX);
 }
