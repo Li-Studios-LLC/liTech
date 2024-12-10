@@ -1,21 +1,26 @@
 #include <liTechFramework/Typedefs.h>
-#include <SDL3/SDL.h>
+#include <liTechFramework/Game.h>
 
-static struct runnerVariables_t {
-	bool gameRunning;
-} variables;
+class liRunner : public liGame {
+public:
+	liRunner() {
 
-static void Initialize() {
+	}
 
-}
+	~liRunner() {
 
-static void MainLoop() {
+	}
 
-}
+	void Initialize() override {
+	}
 
-static void Shutdown() {
+	void Render() override {
+	}
 
-}
+	void Update() override {
+	}
+private:
+};
 
 #if defined(LITECH_WIN32) && defined(LITECH_DEBUG)
 int main(int argc, char** argv) {
@@ -25,26 +30,28 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	liMemory& memory = liMemory::Instance();
 	{
 		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
-		SDL_Window* window = SDL_CreateWindow("liTech", 1280, 720, SDL_WINDOW_RESIZABLE);
+		liStr title = liStr("liTech ") + liStr(LITECH_MAJOR) + "." + liStr(LITECH_MINOR) + "." + liStr(LITECH_REVISION);
+		SDL_Window* window = SDL_CreateWindow(title.CStr(), 1280, 720, SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE);
 		bool windowRunning = true;
-		variables.gameRunning = true;
-		Initialize();
+		liRunner* game = liNew<liRunner>();
+		game->Initialize();
 
-		while (windowRunning || variables.gameRunning) {
+		while (windowRunning || game->IsRunning()) {
 			SDL_Event ev;
 			while (SDL_PollEvent(&ev)) {
 				switch (ev.type) {
 				case SDL_EVENT_QUIT:
 					windowRunning = false;
-					variables.gameRunning = false;
+					game->Quit();
 					break;
 				}
 			}
 
-			MainLoop();
+			game->Render();
+			game->Update();
 		}
 
-		Shutdown();
+		liDelete(game);
 		SDL_DestroyWindow(window);
 		SDL_Quit();
 	}
