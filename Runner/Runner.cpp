@@ -1,14 +1,10 @@
 #include <liTechFramework/Typedefs.h>
 #include <liTechFramework/Game.h>
+#include <liTechFramework/FileSystem.h>
 
 class liRunner : public liGame {
 public:
-	liRunner() {
-
-	}
-
 	~liRunner() {
-
 	}
 
 	void Initialize() override {
@@ -33,6 +29,8 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 		liStr title = liStr("liTech ") + liStr(LITECH_MAJOR) + "." + liStr(LITECH_MINOR) + "." + liStr(LITECH_REVISION);
 		SDL_Window* window = SDL_CreateWindow(title.CStr(), 1280, 720, SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE);
 		bool windowRunning = true;
+		liFileSystem* filesystem = liFileSystem::Instance();
+
 		liRunner* game = liNew<liRunner>();
 		game->Initialize();
 
@@ -52,6 +50,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 		}
 
 		liDelete(game);
+		LITECH_DELETE_INSTANCE(liFileSystem);
 		SDL_DestroyWindow(window);
 		SDL_Quit();
 	}

@@ -173,6 +173,9 @@ LITECH_INLINE liList<T> &liList<T>::operator=(const liList<T> &right) {
     return *this;
 }
 
+typedef liList<ubyte_t> liByteBuffer;
+typedef liList<int> liIntBuffer;
+typedef liList <float> liFloatBuffer;
 typedef liList<char> liCharBuffer;
 
 #endif

@@ -2,4 +2,4 @@ project "liTechFramework"
     kind "SharedLib"
     language "C++"
     files { "**.cpp", "**.h" }
-    links { "liTechBase" }
+    links { "SDL3", "volk", "liTechBase" }
