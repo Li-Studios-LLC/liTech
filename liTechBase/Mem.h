@@ -11,8 +11,9 @@ struct memoryStats_t {
 };
 
 struct memoryHeader_t {
-    char filename[32];
+    char filename[64];
     ulong_t line, size;
+    void* ptr;
 };
 
 class liMemory {

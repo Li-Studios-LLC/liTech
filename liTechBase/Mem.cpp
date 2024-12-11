@@ -21,12 +21,13 @@ void* liMemory::_Allocate(ulong_t size, const char* filename, ulong_t line) {
     strcpy(header.filename, filename);
     header.line = line;
     header.size = size;
+    header.ptr = (void*)(&mem[1]);
     mem[0] = header;
     stats.usage += size;
     stats.allocs++;
     stats.totalAllocs++;
     stats.totalUsage += size;
-    return (void*)(&mem[1]);
+    return header.ptr;
 }
 
 void* liMemory::_Reallocate(void* block, ulong_t newSize, const char* filename, ulong_t line) {
