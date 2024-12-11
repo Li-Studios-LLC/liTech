@@ -14,7 +14,6 @@ liKeyboard::~liKeyboard() {
 
 void liKeyboard::Update() {
     memcpy(lastKeys, keys, LITECH_KEY_COUNT);
-    memset(keys, 0, LITECH_KEY_COUNT);
 }
 
 bool liKeyboard::IsConnected() const {
@@ -26,11 +25,11 @@ bool liKeyboard::IsButtonDown(button_t btn) const {
 }
 
 bool liKeyboard::IsButtonPressed(button_t btn) const {
-    return !keys[btn] && lastKeys[btn];
+    return keys[btn] && !lastKeys[btn];
 }
 
 bool liKeyboard::IsButtonReleased(button_t btn) const {
-    return keys[btn] && !lastKeys[btn];
+    return !keys[btn] && lastKeys[btn];
 }
 
 bool liKeyboard::IsButtonUp(button_t btn) const {

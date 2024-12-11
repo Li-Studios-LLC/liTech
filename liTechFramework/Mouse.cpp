@@ -27,11 +27,11 @@ bool liMouse::IsButtonDown(button_t btn) const {
 }
 
 bool liMouse::IsButtonPressed(button_t btn) const {
-    return !buttons[btn] && lastButtons[btn];
+    return buttons[btn] && !lastButtons[btn];
 }
 
 bool liMouse::IsButtonReleased(button_t btn) const {
-    return buttons[btn] && !lastButtons[btn];
+    return !buttons[btn] && lastButtons[btn];
 }
 
 bool liMouse::IsButtonUp(button_t btn) const {
