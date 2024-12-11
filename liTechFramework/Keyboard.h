@@ -144,15 +144,15 @@ public:
 	bool IsButtonDown(button_t btn) const override;
 	bool IsButtonPressed(button_t btn) const override;
 	bool IsButtonReleased(button_t btn) const override;
-    bool IsButtonUp(button_t btn) const override;
-	
+	bool IsButtonUp(button_t btn) const override;
+
 	ushort_t KeyMods() const;
 
 	// DO NOT USE!
 	void _SetKeyDown(button_t btn);
 	void _SetKeyUp(button_t btn);
 private:
-	bool* keys, *lastKeys;
+	bool* keys, lastKeys;
 };
 
 #endif

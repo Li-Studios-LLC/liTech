@@ -3,14 +3,14 @@
 #ifdef LITECH_WIN32
 
 void liAssert::Break() {
-    DebugBreak();
+	DebugBreak();
 }
 
 #endif
 
 void liAssert::Assert(bool expr, const char* message) {
-    if(!expr) {
-        printf("liAssert failed: %s\n", message);
-        Break();
-    }
+	if (!expr) {
+		printf("liAssert failed: %s\n", message);
+		Break();
+	}
 }

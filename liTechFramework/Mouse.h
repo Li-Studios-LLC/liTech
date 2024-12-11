@@ -11,34 +11,34 @@
 #define LITECH_BUTTON_X2 5
 
 enum class mouseMode_t {
-    CAPTURED,
-    SHOWN,
-    NORMAL
+	CAPTURED,
+	SHOWN,
+	NORMAL
 };
 
 class liMouse : public IInput {
 public:
-    liMouse();
-    liMouse(const liMouse&) = delete;
-    ~liMouse();
+	liMouse();
+	liMouse(const liMouse&) = delete;
+	~liMouse();
 
 	void Update() override;
 	bool IsConnected() const override;
-    bool IsButtonDown(button_t btn) const override;
-    bool IsButtonPressed(button_t btn) const override;
-    bool IsButtonReleased(button_t btn) const override;
-    bool IsButtonUp(button_t btn) const override;
+	bool IsButtonDown(button_t btn) const override;
+	bool IsButtonPressed(button_t btn) const override;
+	bool IsButtonReleased(button_t btn) const override;
+	bool IsButtonUp(button_t btn) const override;
 
-    double X() const { return x; }
-    double Y() const { return y; }
+	double X() const { return x; }
+	double Y() const { return y; }
 
-    // DO NOT USE!
-    void _SetButtonDown(button_t btn);
-    void _SetButtonUp(button_t btn);
-    void _SetPosition(double x, double y);
+	// DO NOT USE!
+	void _SetButtonDown(button_t btn);
+	void _SetButtonUp(button_t btn);
+	void _SetPosition(double x, double y);
 private:
-    bool* buttons, *lastButtons;
-    double x, y;
+	bool* buttons, *lastButtons;
+	double x, y;
 };
 
 #endif

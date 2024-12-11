@@ -4,7 +4,7 @@
 
 class liHash {
 public:
-    static ulong_t HashDJB2(byte_t* bytes, ulong_t size);
+	static ulong_t HashDJB2(byte_t* bytes, ulong_t size);
 };
 
 #endif

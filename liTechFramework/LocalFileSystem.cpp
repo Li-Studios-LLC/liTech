@@ -12,7 +12,7 @@ liLocalFileSystem::~liLocalFileSystem() {
 bool liLocalFileSystem::FileExists(liStr path) {
 	FILE* file = fopen(_ConvertPath(path).CStr(), "r");
 	bool exists = file != nullptr;
-	if(exists) {
+	if (exists) {
 		fclose(file);
 		return true;
 	} else {
@@ -22,7 +22,7 @@ bool liLocalFileSystem::FileExists(liStr path) {
 
 bool liLocalFileSystem::ReadFile(liStr path, liCharBuffer& buffer) {
 	FILE* file = fopen(_ConvertPath(path).CStr(), "rb");
-	if(!file) {
+	if (!file) {
 		return false;
 	}
 	fseek(file, 0, SEEK_END);

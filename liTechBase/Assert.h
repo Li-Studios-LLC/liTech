@@ -4,8 +4,8 @@
 
 class liAssert {
 public:
-    static void Break();
-    static void Assert(bool expr, const char* message);
+	static void Break();
+	static void Assert(bool expr, const char* message);
 };
 
 #ifdef LITECH_DEBUG

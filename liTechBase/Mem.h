@@ -4,36 +4,36 @@
 #include <utility>
 
 struct memoryStats_t {
-    ulong_t allocs;
-    ulong_t usage;
-    ulong_t totalAllocs;
-    ulong_t totalUsage;
+	ulong_t allocs;
+	ulong_t usage;
+	ulong_t totalAllocs;
+	ulong_t totalUsage;
 };
 
 struct memoryHeader_t {
-    char filename[64];
-    ulong_t line, size;
-    void* ptr;
+	char filename[64];
+	ulong_t line, size;
+	void* ptr;
 };
 
 class liMemory {
 public:
-    static liMemory& Instance() {
-        static liMemory instance;
-        return instance;
-    }
+	static liMemory& Instance() {
+		static liMemory instance;
+		return instance;
+	}
 
-    liMemory();
-    ~liMemory();
-    void ResetStats();
+	liMemory();
+	~liMemory();
+	void ResetStats();
 #ifdef LITECH_VERBOSE_MEMORY
-    void* _Allocate(ulong_t size, const char* filename, ulong_t line);
-    void* _Reallocate(void* block, ulong_t newSize, const char* filename, ulong_t line);
-    void _Free(void* block);
-    void _DebugPrint();
+	void* _Allocate(ulong_t size, const char* filename, ulong_t line);
+	void* _Reallocate(void* block, ulong_t newSize, const char* filename, ulong_t line);
+	void _Free(void* block);
+	void _DebugPrint();
 #endif
 private:
-    memoryStats_t stats;
+	memoryStats_t stats;
 };
 
 #ifdef LITECH_VERBOSE_MEMORY
@@ -48,36 +48,36 @@ private:
 
 template <typename T, typename ... Args>
 LITECH_INLINE T* liNew(Args&& ... args) {
-    void* rawMemory = liAlloc(sizeof(T));
-    T* obj = new (rawMemory) T(static_cast<decltype(args)&&>(args)...);
-    return obj;
+	void* rawMemory = liAlloc(sizeof(T));
+	T* obj = new (rawMemory) T(static_cast<decltype(args)&&>(args)...);
+	return obj;
 }
 
 template <typename T>
 LITECH_INLINE T* liNewArray(ulong_t count) {
-    return (T*)liAlloc(sizeof(T) * count);
+	return (T*)liAlloc(sizeof(T) * count);
 }
 
 template <typename T>
 LITECH_INLINE void _liDeleteImpl(T* memory, bool destructor) {
-    if(!memory) {
-        return;
-    }
+	if (!memory) {
+		return;
+	}
 
-    if(destructor) {
-        memory->~T();
-    }
-    liFree(memory);
+	if (destructor) {
+		memory->~T();
+	}
+	liFree(memory);
 }
 
 template <typename T>
 LITECH_INLINE void liDelete(T* memory) {
-    _liDeleteImpl(memory, true);
+	_liDeleteImpl(memory, true);
 }
 
 template <typename T>
 LITECH_INLINE void liDeleteArray(T* memory) {
-    _liDeleteImpl(memory, false);
+	_liDeleteImpl(memory, false);
 }
 
 #endif
