@@ -3,6 +3,7 @@
 #include "Typedefs.h"
 
 class liFileSystem;
+class liInputManager;
 
 class liGame {
 public:
@@ -17,9 +18,11 @@ public:
 
 	LITECH_INLINE bool IsRunning() const { return running; }
 	LITECH_INLINE liFileSystem* GetFileSystem() { return filesystem; }
+	LITECH_INLINE liInputManager* GetInputManager() { return inputManager; }
 private:
 	bool running;
 	liFileSystem* filesystem;
+	liInputManager* inputManager;
 };
 
 #endif

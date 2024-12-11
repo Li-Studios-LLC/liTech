@@ -1,0 +1,158 @@
+#ifndef LITECHFRAMEWORK_KEYBOARD_H
+#define LITECHFRAMEWORK_KEYBOARD_H
+#include "Typedefs.h"
+#include "IInput.h"
+
+#define LITECH_KEY_COUNT 0x200
+
+// Key mods
+#define LITECH_KEYMOD_NONE 0b0
+#define LITECH_KEYMOD_LSHIFT LILIB_BIT(0)
+#define LITECH_KEYMOD_RSHIFT LILIB_BIT(1)
+#define LITECH_KEYMOD_LCTRL LILIB_BIT(2)
+#define LITECH_KEYMOD_RCTRL LILIB_BIT(3)
+#define LITECH_KEYMOD_LALT LILIB_BIT(4)
+#define LITECH_KEYMOD_RALT LILIB_BIT(5)
+#define LITECH_KEYMOD_LGUI LILIB_BIT(6)
+#define LITECH_KEYMOD_RGUI LILIB_BIT(7)
+#define LITECH_KEYMOD_NUM LILIB_BIT(8)
+#define LITECH_KEYMOD_CAPS LILIB_BIT(9)
+#define LITECH_KEYMOD_MODE LILIB_BIT(10)
+#define LITECH_KEYMOD_SCROLL LILIB_BIT(11)
+#define LITECH_KEYMOD_CTRL (LITECH_KEYMOD_LCTRL | LITECH_KEYMOD_RCTRL)
+#define LITECH_KEYMOD_SHIFT (LITECH_KEYMOD_LSHIFT | LITECH_KEYMOD_RSHIFT)
+#define LITECH_KEYMOD_ALT (LITECH_KEYMOD_LALT | LITECH_KEYMOD_RALT)
+#define LITECH_KEYMOD_GUI (LITECH_KEYMOD_LGUI | LITECH_KEYMOD_RGUI)
+
+// Scan codes
+#define LITECH_KEY_A 4
+#define LITECH_KEY_B 5
+#define LITECH_KEY_C 6
+#define LITECH_KEY_D 7
+#define LITECH_KEY_E 8
+#define LITECH_KEY_F 9
+#define LITECH_KEY_G 10
+#define LITECH_KEY_H 11
+#define LITECH_KEY_I 12
+#define LITECH_KEY_J 13
+#define LITECH_KEY_K 14
+#define LITECH_KEY_L 15
+#define LITECH_KEY_M 16
+#define LITECH_KEY_N 17
+#define LITECH_KEY_O 18
+#define LITECH_KEY_P 19
+#define LITECH_KEY_Q 20
+#define LITECH_KEY_R 21
+#define LITECH_KEY_S 22
+#define LITECH_KEY_T 23
+#define LITECH_KEY_U 24
+#define LITECH_KEY_V 25
+#define LITECH_KEY_W 26
+#define LITECH_KEY_X 27
+#define LITECH_KEY_Y 28
+#define LITECH_KEY_Z 29
+#define LITECH_KEY_1 30
+#define LITECH_KEY_2 31
+#define LITECH_KEY_3 32
+#define LITECH_KEY_4 33
+#define LITECH_KEY_5 34
+#define LITECH_KEY_6 35
+#define LITECH_KEY_7 36
+#define LITECH_KEY_8 37
+#define LITECH_KEY_9 38
+#define LITECH_KEY_0 39
+#define LITECH_KEY_RETURN 40
+#define LITECH_KEY_ESCAPE 41
+#define LITECH_KEY_BACKSPACE 42
+#define LITECH_KEY_TAB 43
+#define LITECH_KEY_SPACE 44
+#define LITECH_KEY_MINUS 45
+#define LITECH_KEY_EQUALS 46
+#define LITECH_KEY_RIGHTBRACKET 48
+#define LITECH_KEY_LEFTBRACKET 47
+#define LITECH_KEY_BACKSLASH 49
+#define LITECH_KEY_NONUSHASH 50
+#define LITECH_KEY_SEMICOLON 51
+#define LITECH_KEY_APOSTROPHE 52
+#define LITECH_KEY_GRAVE 53
+#define LITECH_KEY_COMMA 54
+#define LITECH_KEY_PERIOD 55
+#define LITECH_KEY_SLASH 56,
+#define LITECH_KEY_CAPSLOCK 57
+#define LITECH_KEY_F1 58
+#define LITECH_KEY_F2 59
+#define LITECH_KEY_F3 60
+#define LITECH_KEY_F4 61
+#define LITECH_KEY_F5 62
+#define LITECH_KEY_F6 63
+#define LITECH_KEY_F7 64
+#define LITECH_KEY_F8 65
+#define LITECH_KEY_F9 66
+#define LITECH_KEY_F10 67
+#define LITECH_KEY_F11 68
+#define LITECH_KEY_F12 69
+#define LITECH_KEY_PRINTSCREEN 70
+#define LITECH_KEY_SCROLLLOCK 71
+#define LITECH_KEY_PAUSE 72
+#define LITECH_KEY_INSERT 73
+#define LITECH_KEY_HOME 74
+#define LITECH_KEY_PAGEUP 75
+#define LITECH_KEY_DELETE 76
+#define LITECH_KEY_END 77
+#define LITECH_KEY_PAGEDOWN 78
+#define LITECH_KEY_RIGHT 79
+#define LITECH_KEY_LEFT 80
+#define LITECH_KEY_DOWN 81
+#define LITECH_KEY_UP 82
+#define LITECH_KEY_NUMLOCKCLEAR 83
+#define LITECH_KEY_KP_DIVIDE 84
+#define LITECH_KEY_KP_MULTIPLY 85
+#define LITECH_KEY_KP_MINUS 86,
+#define LITECH_KEY_KP_PLUS 87
+#define LITECH_KEY_KP_ENTER 88
+#define LITECH_KEY_KP_1 89
+#define LITECH_KEY_KP_2 90
+#define LITECH_KEY_KP_3 91
+#define LITECH_KEY_KP_4 92
+#define LITECH_KEY_KP_5 93
+#define LITECH_KEY_KP_6 94
+#define LITECH_KEY_KP_7 95
+#define LITECH_KEY_KP_8 96
+#define LITECH_KEY_KP_9 97
+#define LITECH_KEY_KP_0 98
+#define LITECH_KEY_KP_PERIOD 99
+#define LITECH_KEY_POWER 102
+#define LITECH_KEY_KP_EQUALS 103
+#define LITECH_KEY_KP_COMMA 133
+#define LITECH_KEY_LCTRL 224
+#define LITECH_KEY_LSHIFT 225
+#define LITECH_KEY_LALT 226
+#define LITECH_KEY_LGUI 227
+#define LITECH_KEY_RCTRL 228
+#define LITECH_KEY_RSHIFT 229
+#define LITECH_KEY_RALT 230
+#define LITECH_KEY_RGUI 231
+
+class liKeyboard : public IInput {
+public:
+	liKeyboard();
+	liKeyboard(const liKeyboard&) = delete;
+	~liKeyboard();
+
+	void Update() override;
+	bool IsConnected() const override;
+	bool IsButtonDown(button_t btn) const override;
+	bool IsButtonPressed(button_t btn) const override;
+	bool IsButtonReleased(button_t btn) const override;
+    bool IsButtonUp(button_t btn) const override;
+	
+	ushort_t KeyMods() const;
+
+	// DO NOT USE!
+	void _SetKeyDown(button_t btn);
+	void _SetKeyUp(button_t btn);
+private:
+	bool* keys, *lastKeys;
+};
+
+#endif

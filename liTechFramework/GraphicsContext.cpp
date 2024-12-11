@@ -18,8 +18,14 @@ void liGraphicsContext::Initialize(SDL_Window* window) {
 	SDL_GL_MakeCurrent(window, context);
 
 	gladLoadGLES2((GLADloadfunc)SDL_GL_GetProcAddress);
+	SetVsync();
 }
 
 void liGraphicsContext::Swap() {
 	SDL_GL_SwapWindow(window);
+}
+
+void liGraphicsContext::SetVsync(bool vsync) {
+	this->vsync = vsync;
+	SDL_GL_SetSwapInterval(vsync);
 }

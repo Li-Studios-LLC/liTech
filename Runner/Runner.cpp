@@ -2,6 +2,7 @@
 #include <liTechFramework/Game.h>
 #include <liTechFramework/FileSystem.h>
 #include <liTechFramework/GraphicsContext.h>
+#include <liTechFramework/InputManager.h>
 
 class liRunner : public liGame {
 public:
@@ -32,19 +33,39 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 		bool windowRunning = true;
 
 		liFileSystem* filesystem = liFileSystem::Instance();
-		liGraphicsContext* graphicsContext = liGraphicsContext::Instance();
+		liGraphicsContext* graphicsContext = liNew<liGraphicsContext>();
 		graphicsContext->Initialize(window);
+		liInputManager* inputManager = liInputManager::Instance();
+		inputManager->Initialize();
 
 		liRunner* game = liNew<liRunner>();
 		game->Initialize();
 
 		while (windowRunning || game->IsRunning()) {
+			liMouse* mouse = inputManager->GetMouse();
+			liKeyboard* keyboard = inputManager->GetKeyboard();
+
 			SDL_Event ev;
 			while (SDL_PollEvent(&ev)) {
 				switch (ev.type) {
 				case SDL_EVENT_QUIT:
 					windowRunning = false;
 					game->Quit();
+					break;
+				case SDL_EVENT_KEY_DOWN:
+					keyboard->_SetKeyDown(ev.key.scancode);
+					break;
+				case SDL_EVENT_KEY_UP:
+					keyboard->_SetKeyUp(ev.key.scancode);
+					break;
+				case SDL_EVENT_MOUSE_MOTION:
+					mouse->_SetPosition(ev.motion.x, ev.motion.y);
+					break;
+				case SDL_EVENT_MOUSE_BUTTON_DOWN:
+					mouse->_SetButtonDown(ev.button.button);
+					break;
+				case SDL_EVENT_MOUSE_BUTTON_UP:
+					mouse->_SetButtonUp(ev.button.button);
 					break;
 				}
 			}
@@ -53,10 +74,12 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 			game->Render();
 			game->Update();
 			graphicsContext->Swap();
+			inputManager->Update();
 		}
 
 		liDelete(game);
-		LITECH_DELETE_INSTANCE(liGraphicsContext);
+		liDelete(graphicsContext);
+		LITECH_DELETE_INSTANCE(liInputManager);
 		LITECH_DELETE_INSTANCE(liFileSystem);
 		SDL_DestroyWindow(window);
 		SDL_Quit();
