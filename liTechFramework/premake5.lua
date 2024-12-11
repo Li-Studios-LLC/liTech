@@ -1,5 +1,5 @@
 project "liTechFramework"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
-    files { "**.cpp", "**.h" }
-    links { "SDL3", "volk", "liTechBase" }
+    files { "**.cpp", "**.c", "**.h" }
+    links { "liTechBase" }

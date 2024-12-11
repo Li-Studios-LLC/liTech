@@ -4,7 +4,7 @@
 #include "IFileSystem.h"
 #include "LocalFileSystem.h"
 
-class LITECH_EXPORT liFileSystem : public IFileSystem {
+class liFileSystem : public IFileSystem {
 public:
 	static liFileSystem* Instance() {
 		static liFileSystem* instance = nullptr;

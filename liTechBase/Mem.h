@@ -15,7 +15,7 @@ struct memoryHeader_t {
     ulong_t line, size;
 };
 
-class LITECH_EXPORT liMemory {
+class liMemory {
 public:
     static liMemory& Instance() {
         static liMemory instance;

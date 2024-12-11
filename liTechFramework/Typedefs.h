@@ -3,7 +3,7 @@
 
 #include <liTechBase/Lib.h>
 #include <SDL3/SDL.h>
-#include <volk.h>
+#include <glad/gles2.h>
 
 #define LITECH_DELETE_INSTANCE(class) (liDelete(class::Instance()))
 #define LITECH_CPU_COUNT (SDL_GetCPUCount())

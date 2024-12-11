@@ -1,6 +1,7 @@
 #include <liTechFramework/Typedefs.h>
 #include <liTechFramework/Game.h>
 #include <liTechFramework/FileSystem.h>
+#include <liTechFramework/GraphicsContext.h>
 
 class liRunner : public liGame {
 public:
@@ -27,9 +28,12 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	{
 		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 		liStr title = liStr("liTech ") + liStr(LITECH_MAJOR) + "." + liStr(LITECH_MINOR) + "." + liStr(LITECH_REVISION);
-		SDL_Window* window = SDL_CreateWindow(title.CStr(), 1280, 720, SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE);
+		SDL_Window* window = SDL_CreateWindow(title.CStr(), 1280, 720, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 		bool windowRunning = true;
+
 		liFileSystem* filesystem = liFileSystem::Instance();
+		liGraphicsContext* graphicsContext = liGraphicsContext::Instance();
+		graphicsContext->Initialize(window);
 
 		liRunner* game = liNew<liRunner>();
 		game->Initialize();
@@ -45,11 +49,14 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 				}
 			}
 
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			game->Render();
 			game->Update();
+			graphicsContext->Swap();
 		}
 
 		liDelete(game);
+		LITECH_DELETE_INSTANCE(liGraphicsContext);
 		LITECH_DELETE_INSTANCE(liFileSystem);
 		SDL_DestroyWindow(window);
 		SDL_Quit();

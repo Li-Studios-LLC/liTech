@@ -2,7 +2,7 @@
 #define LITECHBASE_HASH_H
 #include "Typedefs.h"
 
-class LITECH_EXPORT liHash {
+class liHash {
 public:
     static ulong_t HashDJB2(byte_t* bytes, ulong_t size);
 };

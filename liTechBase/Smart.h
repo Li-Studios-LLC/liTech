@@ -2,7 +2,7 @@
 #define LITECH_SMART_H
 
 template <typename T>
-class LITECH_EXPORT liSmart {
+class liSmart {
 public:
     liSmart();
     liSmart(T* ptr);

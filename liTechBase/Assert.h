@@ -2,7 +2,7 @@
 #define LITECHBASE_ASSERT_H
 #include "Typedefs.h"
 
-class LITECH_EXPORT liAssert {
+class liAssert {
 public:
     static void Break();
     static void Assert(bool expr, const char* message);

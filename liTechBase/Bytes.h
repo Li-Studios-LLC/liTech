@@ -7,7 +7,7 @@ enum class endianness_t {
     BIG
 };
 
-class LITECH_EXPORT liBytes {
+class liBytes {
 public:
     static endianness_t GetEndianness();
     static ushort_t SwapShort(ushort_t s);

@@ -4,7 +4,7 @@
 
 class liFileSystem;
 
-class LITECH_EXPORT liGame {
+class liGame {
 public:
 	liGame();
 	virtual ~liGame() { }
