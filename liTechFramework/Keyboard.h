@@ -152,7 +152,7 @@ public:
 	void _SetKeyDown(button_t btn);
 	void _SetKeyUp(button_t btn);
 private:
-	bool* keys, lastKeys;
+	bool* keys, *lastKeys;
 };
 
 #endif
