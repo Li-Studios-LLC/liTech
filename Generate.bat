@@ -1,2 +1,2 @@
 @echo off
-premake5 vs2022
+liTech-dependencies\Bins\premake5.exe vs2022
