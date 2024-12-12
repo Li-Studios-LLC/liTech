@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <time.h>
 #include <math.h>
 
 #define LITECH_NAME "liTech"

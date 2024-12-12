@@ -3,6 +3,7 @@
 #include "Typedefs.h"
 #include "IFileSystem.h"
 #include "LocalFileSystem.h"
+#include "PakFile.h"
 
 class liFileSystem : public IFileSystem {
 public:
@@ -18,6 +19,9 @@ public:
 	liFileSystem(const liFileSystem&) = delete;
 	~liFileSystem();
 
+	liPakFile* CreatePak(liStr path);
+	liPakFile* GetPak(liStr path);
+
 	bool FileExists(liStr path) override;
 	bool ReadFile(liStr path, liCharBuffer& buffer) override;
 	void WriteFile(liStr path, liCharBuffer buffer) override;
@@ -27,6 +31,7 @@ private:
 	IFileSystem* _DetermineSystem(const liStr& path);
 
 	liLocalFileSystem* local;
+	liList<liPakFile*> paks;
 };
 
 #endif

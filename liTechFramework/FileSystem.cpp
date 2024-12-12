@@ -6,6 +6,19 @@ liFileSystem::liFileSystem() {
 
 liFileSystem::~liFileSystem() {
 	liDelete(local);
+	for (ulong_t i = 0; i < paks.Size(); i++) {
+		liDelete(paks[i]);
+	}
+}
+
+liPakFile* liFileSystem::CreatePak(liStr path) {
+	liPakFile* pak = liNew<liPakFile>(path);
+	paks.Push(pak);
+	return pak;
+}
+
+liPakFile* liFileSystem::GetPak(liStr path) {
+	return nullptr;
 }
 
 bool liFileSystem::FileExists(liStr path) {
