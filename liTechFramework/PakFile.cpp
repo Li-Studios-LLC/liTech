@@ -24,16 +24,43 @@ void liPakFile::Save() {
 	fclose(file);
 }
 
-bool liPakFile::FileExists(liStr path) {
-	for (ulong_t i = 0; i < entries.Size(); i++) {
-		if (path == entries[i].name)
-			return true;
+liPakFile* liPakFile::Read(liStr path) {
+	liPakFile* pak = liNew<liPakFile>(path);
+	FILE* file = fopen(path.CStr(), "rb");
+	pakHeader_t header;
+	fread(&header, sizeof(pakHeader_t), 1, file);
+	pak->files.Reserve(header.fileCount);
+
+	for (ulong_t i = 0; i < header.fileCount; i++) {
+		pakEntry_t entry;
+		fread(&entry, sizeof(pakEntry_t), 1, file);
+		pak->entries.Push(entry);
 	}
-	return false;
+
+	for (ulong_t i = 0; i < header.fileCount; i++) {
+		pakEntry_t entry = pak->entries[i];
+		void* blob = liAlloc(entry.size);
+		fread(blob, entry.size, 1, file);
+		pak->files.Push(blob);
+		pak->offset += entry.size;
+	}
+
+	fclose(file);
+	return pak;
+}
+
+bool liPakFile::FileExists(liStr path) {
+	return _GetEntry(path) != nullptr;
 }
 
 bool liPakFile::ReadFile(liStr path, liCharBuffer& buffer) {
-	return false;
+	ulong_t index = 0;
+	pakEntry_t* entry = _GetEntry(path, &index);
+	if (entry == nullptr) {
+		return false;
+	}
+	buffer = liCharBuffer((char*)files[index], entry->size);
+	return true;
 }
 
 void liPakFile::WriteFile(liStr path, liCharBuffer buffer) {
@@ -55,6 +82,8 @@ void liPakFile::CreateDirectory(liStr path) {
 }
 
 void liPakFile::DeleteFile(liStr path) {
+	ulong_t index = 0;
+	pakEntry_t* entry = _GetEntry(path, &index);
 }
 
 pakHeader_t liPakFile::_ConstructHeader() {
@@ -63,7 +92,17 @@ pakHeader_t liPakFile::_ConstructHeader() {
 	header.fileCount = entries.Size();
 	header.timestamp = time(0);
 	for (ulong_t i = 0; i < entries.Size(); i++) {
-		header.fileSize += entries[i].size;
+		header.blobSize += entries[i].size;
 	} 
 	return header;
+}
+
+pakEntry_t* liPakFile::_GetEntry(liStr path, ulong_t* index) {
+	for (ulong_t i = 0; i < entries.Size(); i++) {
+		if (path == entries[i].name) {
+			*index = i;
+			return &entries[i];
+		}
+	}
+	return nullptr;
 }

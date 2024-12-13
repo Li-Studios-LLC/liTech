@@ -17,6 +17,12 @@ liPakFile* liFileSystem::CreatePak(liStr path) {
 	return pak;
 }
 
+liPakFile* liFileSystem::LoadPak(liStr path) {
+	liPakFile* pak = liPakFile::Read(path);
+	paks.Push(pak);
+	return pak;
+}
+
 liPakFile* liFileSystem::GetPak(liStr path) {
 	return nullptr;
 }

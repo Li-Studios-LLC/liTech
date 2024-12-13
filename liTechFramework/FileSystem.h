@@ -20,6 +20,7 @@ public:
 	~liFileSystem();
 
 	liPakFile* CreatePak(liStr path);
+	liPakFile* LoadPak(liStr path);
 	liPakFile* GetPak(liStr path);
 
 	bool FileExists(liStr path) override;

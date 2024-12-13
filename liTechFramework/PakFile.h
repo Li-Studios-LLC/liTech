@@ -9,7 +9,7 @@ struct pakHeader_t {
 	char signature[4];
 	uint_t timestamp;
 	uint_t fileCount;
-	ulong_t fileSize;
+	ulong_t blobSize;
 	char padding[8];
 };
 
@@ -27,6 +27,7 @@ public:
 	~liPakFile();
 
 	void Save();
+	static liPakFile* Read(liStr path);
 
 	bool FileExists(liStr path) override;
 	bool ReadFile(liStr path, liCharBuffer& buffer) override;
@@ -35,6 +36,7 @@ public:
 	void DeleteFile(liStr path) override;
 private:
 	pakHeader_t _ConstructHeader();
+	pakEntry_t* _GetEntry(liStr path, ulong_t* index = nullptr);
 
 	liStr path;
 	ulong_t offset;
