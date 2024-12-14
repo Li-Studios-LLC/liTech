@@ -84,6 +84,13 @@ void liPakFile::CreateDirectory(liStr path) {
 void liPakFile::DeleteFile(liStr path) {
 	ulong_t index = 0;
 	pakEntry_t* entry = _GetEntry(path, &index);
+	if (entry == nullptr) {
+		return;
+	}
+	liFree(files[index]);
+	files.Erase(index);
+	entries.Erase(index);
+	offset -= entry->size;
 }
 
 pakHeader_t liPakFile::_ConstructHeader() {
