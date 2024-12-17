@@ -87,6 +87,7 @@ LITECH_INLINE void liList<T>::Push(const T& value) {
 
 template <typename T>
 LITECH_INLINE void liList<T>::Pop() {
+	LITECH_ASSERT(size > 0, "Array size cannot be 0!");
 	this->size--;
 }
 
