@@ -41,18 +41,6 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 		liRunner* game = liNew<liRunner>();
 		game->Initialize();
 
-		/*liPakFile* testPak = filesystem->CreatePak("test.pak");
-		
-		liStr hello = "Hello world";
-		testPak->WriteFile("TestStr", (liCharBuffer&)hello);
-
-		hello = "Hello world2";
-		testPak->WriteFile("TestStr2", (liCharBuffer&)hello);
-
-		testPak->Save();*/
-
-		liPakFile* testPak = filesystem->LoadPak("test.pak");
-
 		while (windowRunning || game->IsRunning()) {
 			liMouse* mouse = inputManager->GetMouse();
 			liKeyboard* keyboard = inputManager->GetKeyboard();

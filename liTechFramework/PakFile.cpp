@@ -69,6 +69,7 @@ void liPakFile::WriteFile(liStr path, liCharBuffer buffer) {
 	strcpy(entry.name, path.CStr());
 	entry.size = buffer.Size();
 	entry.offset = offset;
+	entry.flags = 0;
 	entries.Push(entry);
 
 	void* copy = liAlloc(buffer.Size());

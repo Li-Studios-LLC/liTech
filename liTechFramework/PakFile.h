@@ -17,7 +17,8 @@ struct pakEntry_t {
 	char name[32];
 	ulong_t size;
 	ulong_t offset;
-	char padding[16];
+	ubyte_t flags;
+	char padding[15];
 };
 
 class liPakFile : public IFileSystem {
