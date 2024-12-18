@@ -6,25 +6,23 @@ liFileSystem::liFileSystem() {
 
 liFileSystem::~liFileSystem() {
 	liDelete(local);
-	for (ulong_t i = 0; i < paks.Size(); i++) {
-		liDelete(paks[i]);
-	}
+	paks.DeleteValues();
 }
 
-liPakFile* liFileSystem::CreatePak(liStr path) {
+liPakFile* liFileSystem::CreatePak(liStr name, liStr path) {
 	liPakFile* pak = liNew<liPakFile>(path);
-	paks.Push(pak);
+	paks.Emplace(name, pak);
 	return pak;
 }
 
-liPakFile* liFileSystem::LoadPak(liStr path) {
+liPakFile* liFileSystem::LoadPak(liStr name, liStr path) {
 	liPakFile* pak = liPakFile::Read(path);
-	paks.Push(pak);
+	paks.Emplace(name, pak);
 	return pak;
 }
 
-liPakFile* liFileSystem::GetPak(liStr path) {
-	return nullptr;
+liPakFile* liFileSystem::GetPak(liStr name) {
+	return paks[name];
 }
 
 bool liFileSystem::FileExists(liStr path) {

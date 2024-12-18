@@ -2,31 +2,41 @@
 #define LITECHBASE_PAIR_H
 
 template <typename F, typename S>
-class liPair {
-public:
-	liPair() { }
-	
-	liPair(F first, S second) {
+struct liPair {
+	liPair() {
+		this->first = F();
+		this->second = S();
+	}
+
+ 	liPair(F first, S second) {
 		this->first = first;
 		this->second = second;
 	}
+
+	liPair(const liPair& right) {
+		*this = right;
+	}
+
+	~liPair() {}
 
 	void DeleteBoth() {
 		liDelete(first);
 		liDelete(second);
 	}
 
-	union {
-		struct {
-			F first;
-			S second;
-		};
+	liPair& operator=(const liPair& right) {
+		this->first = right.first;
+		this->second = right.second;
+		return *this;
+	}
 
-		struct {
-			F key;
-			S value;
-		};
-	};
+	F first;
+	S second;
 };
+
+template <typename F, typename S>
+LITECH_INLINE const liPair<F, S>& liMakePair(const F& first, const S& second) {
+	return liPair<F, S>(first, second);
+}
 
 #endif

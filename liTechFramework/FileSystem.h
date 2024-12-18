@@ -19,9 +19,9 @@ public:
 	liFileSystem(const liFileSystem&) = delete;
 	~liFileSystem();
 
-	liPakFile* CreatePak(liStr path);
-	liPakFile* LoadPak(liStr path);
-	liPakFile* GetPak(liStr path);
+	liPakFile* CreatePak(liStr name, liStr path);
+	liPakFile* LoadPak(liStr name, liStr path);
+	liPakFile* GetPak(liStr name);
 
 	bool FileExists(liStr path) override;
 	bool ReadFile(liStr path, liCharBuffer& buffer) override;
@@ -32,7 +32,7 @@ private:
 	IFileSystem* _DetermineSystem(const liStr& path);
 
 	liLocalFileSystem* local;
-	liList<liPakFile*> paks;
+	liHashMap<liStr, liPakFile*> paks;
 };
 
 #endif

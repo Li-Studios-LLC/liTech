@@ -7,9 +7,9 @@
 #include "Smart.h"
 #include "List.h"
 #include "Pair.h"
-#include "Dictionary.h"
 #include "Pool.h"
 #include "Str.h"
 #include "Hash.h"
+#include "HashMap.h"
 
 #endif
