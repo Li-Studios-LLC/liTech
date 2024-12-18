@@ -19,8 +19,10 @@ public:
 	void SetSize(ulong_t newSize);
 	V& Search(const K& key);
 	const V& Search(const K& key) const;
+	long_t Find(const K& key);
 	void Emplace(const K& key, const V& value);
 	void Pop();
+	void Erase(const K& key);
 
 	element_t& Front() { return elements[0]; }
 	const element_t& Front() const { return elements[0]; }
@@ -102,17 +104,29 @@ LITECH_INLINE void liDictionary<K, V>::SetSize(ulong_t newSize) {
 template<typename K, typename V>
 LITECH_INLINE V& liDictionary<K, V>::Search(const K& key) {
 	for (ulong_t i = 0; i < size; i++) {
-		if (elements[i]->first == key)
+		if (elements[i].first == key) {
 			return elements[i]->second;
+		}
 	}
 }
 
 template<typename K, typename V>
 LITECH_INLINE const V& liDictionary<K, V>::Search(const K& key) const {
 	for (ulong_t i = 0; i < size; i++) {
-		if (elements[i]->first == key)
+		if (elements[i].first == key) {
 			return elements[i]->second;
+		}
 	}
+}
+
+template<typename K, typename V>
+LITECH_INLINE long_t liDictionary<K, V>::Find(const K& key) {
+	for (ulong_t i = 0; i < size; i++) {
+		if (elements[i].first == key) {
+			return i;
+		}
+	}
+	return -1;
 }
 
 template<typename K, typename V>
@@ -126,6 +140,16 @@ LITECH_INLINE void liDictionary<K, V>::Emplace(const K& key, const V& value) {
 template<typename K, typename V>
 LITECH_INLINE void liDictionary<K, V>::Pop() {
 	LITECH_ASSERT(size > 0, "Array size cannot be 0!");
+	this->size--;
+}
+
+template<typename K, typename V>
+LITECH_INLINE void liDictionary<K, V>::Erase(const K& key) {
+	long_t index = Find(key);
+	LITECH_ASSERT(index != -1, "Failed to find liDictionary pair!");
+	for (ulong_t i = index; i < size - 1; ++i) {
+		elements[i] = elements[i + 1];
+	}
 	this->size--;
 }
 

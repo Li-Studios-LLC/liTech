@@ -21,6 +21,7 @@ public:
 	void Reserve(ulong_t newCapacity);
 	void SetSize(ulong_t newSize);
 	void SetAll(const T& value);
+	long_t Find(const T& value);
 
 	T& Front() { return buffer[0]; }
 	const T& Front() const { return buffer[0]; }
@@ -118,11 +119,9 @@ LITECH_INLINE void liList<T>::Insert(const T& value, ulong_t index) {
 template <typename T>
 LITECH_INLINE void liList<T>::Erase(ulong_t index) {
 	LITECH_ASSERT(index < size, "liList index is out of bounds!");
-
 	for (ulong_t i = index; i < size - 1; ++i) {
 		buffer[i] = buffer[i + 1];
 	}
-
 	this->size--;
 }
 
@@ -160,6 +159,16 @@ LITECH_INLINE void liList<T>::SetAll(const T& value) {
 	for (ulong_t i = 0; i < size; i++) {
 		buffer[i] = value;
 	}
+}
+
+template<typename T>
+LITECH_INLINE long_t liList<T>::Find(const T& value) {
+	for (ulong_t i = 0; i < size; i++) {
+		if (buffer[i] == value) {
+			return i;
+		}
+	}
+	return -1;
 }
 
 template <typename T>
