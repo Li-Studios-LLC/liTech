@@ -20,9 +20,9 @@ public:
 private:
 };
 
-#if defined(LITECH_WIN32) && defined(LITECH_DEBUG)
+#if defined(LITECH_DEBUG)
 int main(int argc, char** argv) {
-#else
+#elif defined(LITECH_WIN32) && !defined(LITECH_DEBUG)
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 #endif
 	liMemory& memory = liMemory::Instance();
