@@ -30,6 +30,14 @@ struct liPair {
 		return *this;
 	}
 
+	bool operator==(const liPair& right) const {
+		return (first == right.first) && (second == right.second);
+	}
+
+	bool operator!=(const liPair& right) const {
+		return !(*this == right);
+	}
+
 	F first;
 	S second;
 };
