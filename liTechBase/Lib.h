@@ -10,6 +10,7 @@
 #include "Pool.h"
 #include "Str.h"
 #include "Hash.h"
+#include "LinkedList.h"
 #include "HashMap.h"
 
 #endif
