@@ -79,7 +79,7 @@ void liPakFile::WriteFile(liStr path, liCharBuffer buffer) {
 }
 
 void liPakFile::CreateDirectory(liStr path) {
-	liAssert::Assert(false, "liPakFile doesn't use directories!");
+	LITECH_ASSERT(false, "liPakFile doesn't use directories!");
 }
 
 void liPakFile::DeleteFile(liStr path) {

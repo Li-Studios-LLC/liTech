@@ -1,12 +1,12 @@
 #include "Assert.h"
 
-#ifdef LITECH_WIN32
-
 void liAssert::Break() {
+#ifdef LITECH_WIN32
 	DebugBreak();
+#else
+#endif
 }
 
-#endif
 
 void liAssert::Assert(bool expr, const char* message) {
 	if (!expr) {

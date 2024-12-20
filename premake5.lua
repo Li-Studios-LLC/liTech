@@ -29,11 +29,11 @@ workspace "liTech"
         defines { "__EMSCRIPTEN__" }
 
     filter "configurations:Debug"
-        defines { "DEBUG" }
+        defines { "_DEBUG" }
         symbols "On"
 
     filter "configurations:Release"
-        defines { "NDEBUG" }
+        defines { "_NDEBUG" }
         optimize "On"
 
 group "Engine"
