@@ -1,6 +1,6 @@
 workspace "liTech"
     configurations { "Debug", "Release" }
-    platforms { "Win64" }
+    platforms { "Win64", "Linux", "Web" }
     location "Build"
     cppdialect "C++20"
     startproject "Runner"
@@ -11,16 +11,22 @@ workspace "liTech"
     libdirs { "liTech-dependencies/Libs" }
 
     filter "platforms:Win64"
-        system "Windows"
+        system "windows"
+        toolset "msc"
+        architecture "x86_64"
+
+    filter "platforms:Linux"
+        system "linux"
+        toolset "gcc"
         architecture "x86_64"
 
     filter "configurations:Debug"
-      defines { "DEBUG" }
-      symbols "On"
+        defines { "DEBUG" }
+        symbols "On"
 
     filter "configurations:Release"
-      defines { "NDEBUG" }
-      optimize "On"
+        defines { "NDEBUG" }
+        optimize "On"
 
 group "Engine"
     include "liTechBase"
