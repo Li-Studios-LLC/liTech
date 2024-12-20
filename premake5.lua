@@ -1,3 +1,5 @@
+require("liTech-dependencies/PremakeModules/emscripten")
+
 workspace "liTech"
     configurations { "Debug", "Release" }
     platforms { "Win64", "Linux", "Web" }
@@ -19,6 +21,12 @@ workspace "liTech"
         system "linux"
         toolset "gcc"
         architecture "x86_64"
+
+    filter "platforms:Web"
+        system "emscripten"
+        toolset "gcc"
+        architecture "wasm64"
+        defines { "__EMSCRIPTEN__" }
 
     filter "configurations:Debug"
         defines { "DEBUG" }
