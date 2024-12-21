@@ -14,17 +14,14 @@ workspace "liTech"
 
     filter "platforms:Win64"
         system "windows"
-        toolset "msc"
         architecture "x86_64"
 
     filter "platforms:Linux"
         system "linux"
-        toolset "gcc"
         architecture "x86_64"
 
     filter "platforms:Web"
         system "emscripten"
-        toolset "gcc"
         architecture "wasm64"
         defines { "__EMSCRIPTEN__" }
 
