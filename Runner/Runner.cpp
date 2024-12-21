@@ -26,6 +26,8 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 int main(int argc, char** argv) {
 #endif
 	liMemory& memory = liMemory::Instance();
+	// Need to call this assert function for it to link on Linux (probably can delete later)
+	LITECH_ASSERT(true, "");
 	{
 		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 		liStr title = liStr("liTech ") + liStr(LITECH_MAJOR) + "." + liStr(LITECH_MINOR) + "." + liStr(LITECH_REVISION);

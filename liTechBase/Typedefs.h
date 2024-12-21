@@ -17,7 +17,7 @@
 #define LITECH_WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
-#elif __LINUX__
+#elif __linux__
 #define LITECH_LINUX
 #elif __EMSCRIPTEN__
 #define LITECH_WEB
