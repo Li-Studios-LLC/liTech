@@ -1,11 +1,18 @@
 #include "Assertion.h"
 
-void liAssert::Break() {
+#ifdef LITECH_DEBUG
+
 #ifdef LITECH_WIN32
+void liAssert::Break() {
 	DebugBreak();
-#else
-#endif
 }
+#else
+#include <signal.h>
+
+void liAssert::Break() {
+	raise(SIGTRAP);
+}
+#endif
 
 void liAssert::Assert(bool expr, const char* message) {
 	if (!expr) {
@@ -13,3 +20,5 @@ void liAssert::Assert(bool expr, const char* message) {
 		Break();
 	}
 }
+
+#endif
