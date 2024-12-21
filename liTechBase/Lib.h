@@ -2,7 +2,7 @@
 #define LITECHBASE_LIB_H
 
 #include "Typedefs.h"
-#include "Assert.h"
+#include "Assertion.h"
 #include "Mem.h"
 #include "Smart.h"
 #include "List.h"

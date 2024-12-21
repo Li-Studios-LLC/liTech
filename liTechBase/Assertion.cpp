@@ -1,4 +1,4 @@
-#include "Assert.h"
+#include "Assertion.h"
 
 void liAssert::Break() {
 #ifdef LITECH_WIN32

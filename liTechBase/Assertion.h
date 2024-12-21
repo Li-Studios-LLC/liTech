@@ -1,5 +1,5 @@
-#ifndef LITECHBASE_ASSERT_H
-#define LITECHBASE_ASSERT_H
+#ifndef LITECHBASE_ASSERTION_H
+#define LITECHBASE_ASSERTION_H
 #include "Typedefs.h"
 
 class liAssert {
