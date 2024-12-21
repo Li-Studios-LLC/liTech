@@ -7,7 +7,6 @@ void liAssert::Break() {
 #endif
 }
 
-
 void liAssert::Assert(bool expr, const char* message) {
 	if (!expr) {
 		printf("liAssert failed: %s\n", message);

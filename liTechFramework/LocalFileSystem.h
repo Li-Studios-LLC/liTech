@@ -1,5 +1,5 @@
-#ifndef MP_LOCALFILESYSTEM_H
-#define MP_LOCALFILESYSTEM_H
+#ifndef LITECHFRAMEWORK_LOCALFILESYSTEM_H
+#define LITECHFRAMEWORK_LOCALFILESYSTEM_H
 #include "Typedefs.h"
 #include "IFileSystem.h"
 
