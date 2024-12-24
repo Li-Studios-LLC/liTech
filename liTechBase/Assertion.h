@@ -6,16 +6,11 @@
 
 class liAssert {
 public:
-	static liAssert& Instance() {
-		static liAssert instance;
-		return instance;
-	}
-
-	void Break();
-	void Assert(bool expr, const char* message);
+	static void Break();
+	static void Assert(bool expr, const char* message);
 };
 
-#define LITECH_ASSERT(expr, message) liAssert::Instance().Assert(expr, message)
+#define LITECH_ASSERT(expr, message) liAssert::Assert(expr, message)
 #else
 #define LITECH_ASSERT(expr, message)
 #endif
