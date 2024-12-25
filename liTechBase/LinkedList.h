@@ -16,6 +16,16 @@ public:
 	void Push(const T& value);
 	void Pop();
 	T& Alloc();
+
+	T& First() { return first->value; }
+	const T& First() const { return first->value; }
+	T& Last() { return first->value; }
+	const T& Last() const { return first->value; }
+
+	element_t* FirstElement() { return first; }
+	element_t* LastElement() { return last; }
+
+	ulong_t Size() const { return size;  }
 private:
 	element_t* elements, *first, *last;
 	ulong_t size;
@@ -53,10 +63,23 @@ LITECH_INLINE void liLinkedList<T>::Clear() {
 
 template<typename T>
 LITECH_INLINE void liLinkedList<T>::Push(const T& value) {
+	if (first == nullptr) {
+
+	} else if (first == last) {
+
+	} else {
+
+	}
 }
 
 template<typename T>
 LITECH_INLINE void liLinkedList<T>::Pop() {
+	if (first == last) {
+
+	} else {
+		element_t* newLast = last->last;
+	}
+	this->size--;
 }
 
 template<typename T>
