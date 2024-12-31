@@ -1,7 +1,6 @@
 #ifndef LITECHBASE_LINKEDLIST_H
 #define LITECHBASE_LINKEDLIST_H
 
-
 template <typename T>
 class liLinkedList {
 public:
@@ -44,19 +43,19 @@ private:
 	ulong_t size;
 };
 
-template<typename T>
+template <typename T>
 LITECH_INLINE liLinkedList<T>::liLinkedList() {
 	this->first = nullptr;
 	this->last = nullptr;
 	this->size = 0;
 }
 
-template<typename T>
+template <typename T>
 LITECH_INLINE liLinkedList<T>::~liLinkedList() {
 	Clear();
 }
 
-template<typename T>
+template <typename T>
 LITECH_INLINE liLinkedList<T>::liLinkedList(const liLinkedList& right) {
 	this->first = nullptr;
 	this->last = nullptr;
@@ -64,7 +63,7 @@ LITECH_INLINE liLinkedList<T>::liLinkedList(const liLinkedList& right) {
 	*this = right;
 }
 
-template<typename T>
+template <typename T>
 LITECH_INLINE void liLinkedList<T>::Clear() {
 	if (!IsEmpty()) {
 		node_t* node = first;
@@ -80,7 +79,7 @@ LITECH_INLINE void liLinkedList<T>::Clear() {
 	this->size = 0;
 }
 
-template<typename T>
+template <typename T>
 LITECH_INLINE void liLinkedList<T>::Push(const T& value) {
 	node_t* node = liNew<node_t>(value);
 	if (first == nullptr) {
@@ -101,7 +100,7 @@ LITECH_INLINE void liLinkedList<T>::Push(const T& value) {
 	this->size++;
 }
 
-template<typename T>
+template <typename T>
 LITECH_INLINE void liLinkedList<T>::Pop() {
 	LITECH_ASSERT(!IsEmpty(), "liLinkedList is empty!");
 	if (first == last) {
@@ -119,7 +118,7 @@ LITECH_INLINE void liLinkedList<T>::Pop() {
 	this->size--;
 }
 
-template<typename T>
+template <typename T>
 LITECH_INLINE void liLinkedList<T>::Insert(const T& value, ulong_t index) {
 	if (index >= size) {
 		Push(value);
@@ -141,11 +140,23 @@ LITECH_INLINE void liLinkedList<T>::Insert(const T& value, ulong_t index) {
 	}
 }
 
-template<typename T>
+template <typename T>
 LITECH_INLINE void liLinkedList<T>::Erase(ulong_t index) {
+	LITECH_ASSERT(index < size, "liLinkedList::Erase index out of bounds!");
+	if (index == 0) {
+		node_t* newFirst = first->next;
+		liDelete(first);
+		this->first = newFirst;
+		this->first->last = nullptr;
+		this->size--;
+	} else if (index == size) {
+		Pop();
+	} else {
+		this->size--;
+	}
 }
 
-template<typename T>
+template <typename T>
 LITECH_INLINE T& liLinkedList<T>::Find(const T& value) {
 	LITECH_ASSERT(!IsEmpty(), "liLinkedList is empty!");
 	node_t* node = first;
@@ -157,7 +168,7 @@ LITECH_INLINE T& liLinkedList<T>::Find(const T& value) {
 	}
 }
 
-template<typename T>
+template <typename T>
 LITECH_INLINE const T& liLinkedList<T>::Find(const T& value) const {
 	LITECH_ASSERT(!IsEmpty(), "liLinkedList is empty!");
 	node_t* node = first;
@@ -169,7 +180,7 @@ LITECH_INLINE const T& liLinkedList<T>::Find(const T& value) const {
 	}
 }
 
-template<typename T>
+template <typename T>
 LITECH_INLINE liLinkedList<T>& liLinkedList<T>::operator=(const liLinkedList& right) {
 	Clear();
 	if (!right.IsEmpty()) {
@@ -182,7 +193,7 @@ LITECH_INLINE liLinkedList<T>& liLinkedList<T>::operator=(const liLinkedList& ri
 	return *this;
 }
 
-template<typename T>
+template <typename T>
 LITECH_INLINE liLinkedList<T>::node_t* liLinkedList<T>::_GetNode(ulong_t index) {
 	LITECH_ASSERT(!IsEmpty(), "liLinkedList is empty!");
 	node_t* node = first;
