@@ -124,7 +124,20 @@ LITECH_INLINE void liLinkedList<T>::Insert(const T& value, ulong_t index) {
 	if (index >= size) {
 		Push(value);
 	} else if(index == 0) {
+		node_t* node = liNew<node_t>(value);
+		first->last = node;
+		node->next = first;
+		this->first = node;
+		this->size++;
 	} else {
+		node_t* node = liNew<node_t>(value);
+		node_t* before = _GetNode(index - 1);
+		node_t* after = _GetNode(index);
+		before->next = node;
+		node->last = before;
+		after->last = node;
+		node->next = after;
+		this->size++;
 	}
 }
 
