@@ -152,6 +152,12 @@ LITECH_INLINE void liLinkedList<T>::Erase(ulong_t index) {
 	} else if (index == size) {
 		Pop();
 	} else {
+		node_t* before = _GetNode(index - 1);
+		node_t* node = _GetNode(index);
+		node_t* after = _GetNode(index + 1);
+		before->next = after;
+		after->last = before;
+		liDelete(node);
 		this->size--;
 	}
 }
