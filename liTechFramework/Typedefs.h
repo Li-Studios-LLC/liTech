@@ -1,0 +1,6 @@
+#ifndef LITECHFRAMEWORK_TYPEDEFS_H
+#define LITECHFRAMEWORK_TYPEDEFS_H
+
+#include <SDL3/SDL.h>
+
+#endif
