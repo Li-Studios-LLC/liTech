@@ -1,11 +1,6 @@
 #ifndef LITECHFRAMEWORK_TYPEDEFS_H
 #define LITECHFRAMEWORK_TYPEDEFS_H
 
-#include <iostream>
-#include <vector>
-#include <string>
-#include <SDL3/SDL.h>
-
 #define LITECH_MAJOR 1
 #define LITECH_MINOR 0
 #define LITECH_REVISION 0
@@ -16,6 +11,13 @@
 #else
 #define LITECH_INLINE inline
 #define LITECH_EXPORT
+#endif
+
+#ifdef _DEBUG
+#define LITECH_DEBUG
+#define LITECH_VERBOSE_MEMORY
+#else
+#define LITECH_RELEASE
 #endif
 
 #define LITECH_ARRAYSIZE(arr) (sizeof(arr) / sizeof(*arr))
@@ -40,5 +42,15 @@ typedef float float32_t;
 typedef double float64_t;
 typedef const char* cstring_t;
 typedef void* memory_t;
+
+#include <iostream>
+#include <algorithm>
+#include <utility>
+#include <unordered_map>
+#include <vector>
+#include <list>
+#include <string>
+#include "Utility/Print.h"
+#include <SDL3/SDL.h>
 
 #endif

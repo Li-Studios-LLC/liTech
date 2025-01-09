@@ -12,9 +12,10 @@ public:
     liAllocator();
     virtual ~liAllocator() { }
 
-    virtual void* Allocate(ulong_t size, ulong_t align) = 0;
+    virtual void* Allocate(ulong_t size) = 0;
     virtual void Deallocate(void* memory) = 0;
-    virtual void Reallocate(void* memory, ulong_t newSize) = 0;
+    virtual void* Reallocate(void* memory, ulong_t newSize) = 0;
+    virtual void DebugPrint() = 0;
 protected:
     void _ResetStats();
 
