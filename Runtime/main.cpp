@@ -11,12 +11,6 @@ int main(int argc, char** argv) {
         SDL_Window* window = SDL_CreateWindow(title.c_str(), width, height, SDL_WINDOW_OPENGL);
         bool running = true;
 
-        {
-            int* block = (int*)heap->Allocate(sizeof(int));
-            *block = 23;
-            //heap->Deallocate(block);
-        }
-
         while(running) {
             SDL_Event ev;
             while (SDL_PollEvent(&ev)) {

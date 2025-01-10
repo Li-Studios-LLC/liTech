@@ -2,6 +2,7 @@
 #define LITECHFRAMEWORK_HEAP_H
 #include "Typedefs.h"
 #include "Allocator.h"
+#include "Alloc.h"
 
 struct heapAllocation_t {
     memory_t ptr;
@@ -36,7 +37,47 @@ private:
 };
 
 #ifdef LITECH_VERBOSE_MEMORY
+#define liAlloc(size) liHeap::Instance()->Allocate(size)
+#define liRealloc(block, newSize) liHeap::Instance()->Reallocate(block, newSize)
+#define liFree(block) liHeap::Instance()->Deallocate(block)
 #else
+#define liAlloc(size) liTechMalloc(size)
+#define liRealloc(block, newSize) liTechRealloc(block, newSize)
+#define liFree(block) liTechFree(block)
 #endif
+
+template <typename T, typename ... Args>
+LITECH_INLINE T* liNew(Args&& ... args) {
+    void* rawMemory = liAlloc(sizeof(T));
+    T* obj = new (rawMemory) T(std::forward<Args>(args)...);
+    return obj;
+}
+
+template <typename T>
+LITECH_INLINE T* liNewArray(ulong_t count) {
+    return (T*)liAlloc(sizeof(T) * count);
+}
+
+template <typename T>
+LITECH_INLINE void _liDeleteImpl(T* memory, bool destructor) {
+    if(!memory) {
+        return;
+    }
+
+    if(destructor) {
+        memory->~T();
+    }
+    liFree(memory);
+}
+
+template <typename T>
+LITECH_INLINE void liDelete(T* memory) {
+    _liDeleteImpl(memory, true);
+}
+
+template <typename T>
+LITECH_INLINE void liDeleteArray(T* memory) {
+    _liDeleteImpl(memory, false);
+}
 
 #endif

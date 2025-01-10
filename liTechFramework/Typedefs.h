@@ -50,7 +50,9 @@ typedef void* memory_t;
 #include <vector>
 #include <list>
 #include <string>
-#include "Utility/Print.h"
 #include <SDL3/SDL.h>
+
+// Some wrappers
+#include "Utility/Print.h"
 
 #endif

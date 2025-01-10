@@ -7,7 +7,7 @@ liHeap::~liHeap() {
 }
 
 void* liHeap::Allocate(ulong_t size) {
-    heapAllocation_t* memory = (heapAllocation_t*)malloc(size + sizeof(heapAllocation_t));
+    heapAllocation_t* memory = (heapAllocation_t*)liTechMalloc(size + sizeof(heapAllocation_t));
     void* actual = (void*)&memory[1];
     heapAllocation_t alloc;
     alloc.ptr = actual;
@@ -33,7 +33,7 @@ void liHeap::Deallocate(void* memory) {
     stats.usage -= alloc.size;
     _RemoveAllocation(alloc.ptr);
     void* ptr = (void*)(&block[-1]);
-    free(ptr);
+    liTechFree(ptr);
 }
 
 void* liHeap::Reallocate(void* memory, ulong_t newSize) {
