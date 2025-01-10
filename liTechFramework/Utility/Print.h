@@ -9,7 +9,7 @@ void liTechPrint(std::string str, Args&& ... args) {
     putchar('\n');
 }
 #else
-template <typename ... args>
+template <typename ... Args>
 void liTechPrint(std::string str, Args&& ... args) {
 }
 #endif
