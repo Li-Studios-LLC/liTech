@@ -50,6 +50,7 @@ typedef void* memory_t;
 #include <vector>
 #include <list>
 #include <string>
+#include <glad/gles2.h>
 #include <SDL3/SDL.h>
 
 // Some wrappers

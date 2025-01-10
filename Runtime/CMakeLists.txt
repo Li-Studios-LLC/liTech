@@ -9,6 +9,8 @@ if(WIN32)
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${PROJECT_SOURCE_DIR}/liTech-dependencies/Bin/SDL3.dll
         $<TARGET_FILE_DIR:Runtime>)
+
+    target_link_libraries(Runtime opengl32)
 endif()
 
 set_target_properties(Runtime PROPERTIES FOLDER "Applications")

@@ -1,5 +1,6 @@
 #include <liTechFramework/Typedefs.h>
 #include <liTechFramework/Utility/Heap.h>
+#include <liTechFramework/Graphics/GraphicsContext.h>
 
 int main(int argc, char** argv) {
     liHeap* heap = liHeap::Instance();
@@ -10,6 +11,7 @@ int main(int argc, char** argv) {
         int height = 800;
         SDL_Window* window = SDL_CreateWindow(title.c_str(), width, height, SDL_WINDOW_OPENGL);
         bool running = true;
+        liGraphicsContext context = liGraphicsContext(window);
 
         while(running) {
             SDL_Event ev;
@@ -26,8 +28,13 @@ int main(int argc, char** argv) {
                         break;
                 }
             }
+
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            context.Swap();
         }
         
+        SDL_DestroyWindow(window);
         SDL_Quit();
     }
     LITECH_DELETE_INSTANCE(liHeap);
