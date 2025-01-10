@@ -8,14 +8,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$<CONFIGURATION>)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$<CONFIGURATION>)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-add_compile_definitions(-DUNICODE -D_UNICODE -D_CRT_SECURE_NO_WARNINGS)
+add_compile_definitions(UNICODE _UNICODE _CRT_SECURE_NO_WARNINGS)
 
 if(WIN32)
-    add_compile_definitions(-DLITECH_WIN32)
+    add_compile_definitions(LITECH_WIN32)
 elseif(__linux__)
-    add_compile_definitions(-DLITECH_LINUX)
+    add_compile_definitions(LITECH_LINUX)
 elseif(__EMSCRIPTEN__)
-    add_compile_definitions(-DLITECH_WEB)
+    add_compile_definitions(LITECH_WEB)
 endif()
 
 add_subdirectory(liTechFramework)
