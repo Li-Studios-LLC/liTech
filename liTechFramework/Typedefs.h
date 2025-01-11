@@ -49,9 +49,15 @@ typedef void* memory_t;
 #include <unordered_map>
 #include <vector>
 #include <list>
+#include <bitset>
 #include <string>
 #include <glad/gles2.h>
 #include <SDL3/SDL.h>
+
+typedef std::vector<bool> liBoolBuffer;
+typedef std::vector<int> liIntBuffer;
+typedef std::vector<float> liFloatBuffer;
+typedef std::vector<float> liCharBuffer;
 
 // Some wrappers
 #include "Utility/Print.h"
