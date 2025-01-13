@@ -3,8 +3,6 @@
 #include "Typedefs.h"
 #include "Heap.h"
 
-#define LITECH_RESOURCEID_LENGTH 0x10
-
 typedef std::string liResourceID;
 
 class liResourceManager;
@@ -12,7 +10,7 @@ class liResourceManager;
 class liResource {
     friend class liResourceManager;
 public:
-    liResource(liResourceID id);
+    liResource();
     virtual ~liResource();
     
     LITECH_INLINE liResourceID ID() const { return id; }
@@ -36,11 +34,15 @@ public:
     liResourceManager();
     ~liResourceManager();
 
-    liResourceID GenerateID();
+    static liResourceID GenerateID();
     void AddResource(liResourceID id, liResource* resource);
     void DeleteResource(liResourceID id);
+    void ClearResources();
 private:
     liResourceMap resources;
 };
+
+#define LITECH_ADD_RESOURCE(resource) liResourceManager::Instance->AddResource(GenerateID(), resource)
+#define LITECH_DELETE_RESOURCE(id) liResourceManager::Instance->DeleteResource(id)
 
 #endif

@@ -28,6 +28,7 @@
 #define LITECH_PI 3.141592f
 #define LITECH_RADIANS(degrees) (degrees * LILIB_PI / 180)
 #define LITECH_DEGREES(radians) (degrees * 180 / LILIB_PI)
+#define LITECH_TIMESTAMP() (ulong_t)(time(NULL))
 #define LITECH_PLATFORM_NAME() (SDL_GetPlatform())
 #define LITECH_CPU_COUNT() (SDL_GetCPUCount())
 #define LITECH_DELETE_INSTANCE(class) (delete class::Instance())
@@ -42,6 +43,7 @@ typedef float float32_t;
 typedef double float64_t;
 typedef const char* cstring_t;
 typedef void* memory_t;
+typedef unsigned int ghandle_t;
 
 #include <iostream>
 #include <algorithm>
@@ -51,6 +53,7 @@ typedef void* memory_t;
 #include <list>
 #include <bitset>
 #include <string>
+#include <memory>
 #include <glad/gles2.h>
 #include <SDL3/SDL.h>
 
