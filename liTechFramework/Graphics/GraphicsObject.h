@@ -6,6 +6,8 @@ class liGraphicsObject : public liResource {
 public:
     virtual ~liGraphicsObject() { }
 
+    virtual void Initialize() = 0;
+    virtual void Delete() = 0;
     virtual void CalculateHash() = 0;
 
     LITECH_INLINE ulong_t Hash() const { return hash; }
