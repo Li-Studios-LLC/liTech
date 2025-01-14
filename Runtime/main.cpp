@@ -15,8 +15,6 @@ struct runtime_t {
     int width, height;
 } rt;
 
-liMesh* mesh;
-
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     liHeap* heap = liHeap::Instance();
     liResourceManager* resource = liResourceManager::Instance();
@@ -29,15 +27,11 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     rt.keyboard = liNew<liKeyboard>();
     rt.mouse = liNew<liMouse>();
 
-    mesh = liNew<liMesh>();
-
     return SDL_APP_CONTINUE;
 }
 
 SDL_AppResult SDL_AppIterate(void* appstate) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    mesh->Draw();
 
     rt.context->Swap();
     rt.mouse->Update();
@@ -67,8 +61,6 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event) {
 }
 
 void SDL_AppQuit(void* appstate, SDL_AppResult result) {
-    liDelete(mesh);
-
     liDelete(rt.mouse);
     liDelete(rt.keyboard);
     liDelete(rt.context);
