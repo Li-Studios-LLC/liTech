@@ -1,8 +1,8 @@
 #ifndef LITECHFRAMEWORK_VERTEX_ARRAY_H
 #define LITECHFRAMEWORK_VERTEX_ARRAY_H
 #include "GraphicsObject.h"
-
-class liVertexBuffer;
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 class liVertexArray : public liGraphicsObject {
 public:
@@ -14,7 +14,8 @@ public:
     virtual void CalculateHash() override;
 private:
     ghandle_t ID;
-    liVertexArray* vbo;
+    liVertexBuffer* vbo;
+    liIndexBuffer* ibo;
 };
 
 #endif

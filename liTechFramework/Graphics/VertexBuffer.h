@@ -4,13 +4,15 @@
 
 class liVertexBuffer : public liGraphicsObject {
 public:
-    liVertexBuffer();
+    liVertexBuffer(void** data, ulong_t size);
     ~liVertexBuffer();
 
     virtual void Initialize() override;
     virtual void Delete() override;
     virtual void CalculateHash() override;
 private:
+    void** data;
+    ulong_t size;
 };
 
 #endif

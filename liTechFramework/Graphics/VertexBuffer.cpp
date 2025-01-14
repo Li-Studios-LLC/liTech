@@ -1,6 +1,8 @@
 #include "VertexBuffer.h"
 
-liVertexBuffer::liVertexBuffer() {
+liVertexBuffer::liVertexBuffer(void** data, ulong_t size) {
+    this->data = data;
+    this->size = size;
 }
 
 liVertexBuffer::~liVertexBuffer() {
