@@ -10,6 +10,8 @@ public:
     virtual void Delete() = 0;
     virtual void CalculateHash() = 0;
 
+    void Reinitialize();
+
     LITECH_INLINE ulong_t Hash() const { return hash; }
 protected:
     ghandle_t handle;
