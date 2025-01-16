@@ -6,6 +6,7 @@
 #include <liTechFramework/Input/Mouse.h>
 #include <liTechFramework/Graphics/GraphicsContext.h>
 #include <liTechFramework/Graphics/Mesh.h>
+#include <liTechFramework/Math/Lib.h>
 
 struct runtime_t {
     SDL_Window* window;

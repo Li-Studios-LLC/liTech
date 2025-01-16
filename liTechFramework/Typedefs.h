@@ -25,9 +25,6 @@
 #define LITECH_BIT(x) (1 << x)
 #define LITECH_OK 1
 #define LITECH_BAD -1
-#define LITECH_PI 3.141592f
-#define LITECH_RADIANS(degrees) (degrees * LILIB_PI / 180)
-#define LITECH_DEGREES(radians) (degrees * 180 / LILIB_PI)
 #define LITECH_TIMESTAMP() (ulong_t)(time(NULL))
 #define LITECH_PLATFORM_NAME() (SDL_GetPlatform())
 #define LITECH_CPU_COUNT() (SDL_GetCPUCount())
