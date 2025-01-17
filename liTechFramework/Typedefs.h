@@ -56,6 +56,7 @@ typedef unsigned int ghandle_t;
 
 typedef std::vector<bool> liBoolBuffer;
 typedef std::vector<int> liIntBuffer;
+typedef std::vector<int> liUIntBuffer;
 typedef std::vector<float> liFloatBuffer;
 typedef std::vector<float> liCharBuffer;
 

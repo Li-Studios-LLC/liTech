@@ -1,5 +1,6 @@
 #ifndef LITECHFRAMEWORK_GEOMETRY_H
 #define LITECHFRAMEWORK_GEOMETRY_H
+#include "Utility/Resource.h"
 
 struct liVertex3D {
     liVector3f position;
@@ -7,12 +8,44 @@ struct liVertex3D {
     liVector3f normal;
 };
 
-template <typename VertexType = liVertex3D>
-class liGeometry {
+template <class VertexType = liVertex3D>
+class liGeometry : public liResource {
 public:
+    using VertexList = std::vector<VertexType>;
+
+    liGeometry() {
+    }
+
+    liGeometry(VertexList vertices, liUIntBuffer indices) {
+        this->vertices = vertices;
+        this->indices = indices;
+    }
+
+    ~liGeometry() {
+    }
+
+    void AddVertex(VertexType vertex) {
+        vertices.push_back(vertex);
+    }
+
+    void AddIndex(uint_t index) {
+        indices.push_back(index);
+    }
+
+    void Clear() {
+        vertices.clear();
+        indices.clear();
+    }
+
+    void CalculateHash() {
+        this->hash = 0;
+    }
+
+    LITECH_INLINE ulong_t Hash() const { return hash; }
 private:
     std::vector<VertexType> vertices;
-    std::vector<uint_t> indices;
+    liUIntBuffer indices;
+    ulong_t hash;
 };
 
 #endif
