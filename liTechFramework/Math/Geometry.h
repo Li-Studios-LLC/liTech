@@ -63,6 +63,9 @@ public:
     void CalculateHash() {
         this->hash = 0;
     }
+    
+    LITECH_INLINE VertexType* Vertices() { return vertices.data(); }
+    LITECH_INLINE uint_t* Indices() { return indices.data(); }
 
     LITECH_INLINE ulong_t VertexCount() const { return vertices.size(); }
     LITECH_INLINE ulong_t IndexCount() const { return indices.size(); }
