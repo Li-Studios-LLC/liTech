@@ -27,7 +27,8 @@
 #define LITECH_BAD -1
 #define LITECH_TIMESTAMP() (ulong_t)(time(NULL))
 #define LITECH_PLATFORM_NAME() (SDL_GetPlatform())
-#define LITECH_CPU_COUNT() (SDL_GetCPUCount())
+#define LITECH_CPU_COUNT() (SDL_GetNumLogicalCPUCores())
+#define LITECH_MAIN_THREAD() (SDL_IsMainThread())
 #define LITECH_DELETE_INSTANCE(class) (delete class::Instance())
 
 typedef unsigned char ubyte_t;

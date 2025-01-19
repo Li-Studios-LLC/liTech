@@ -24,6 +24,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     std::string title = "liTech " + std::to_string(LITECH_MAJOR) + '.' + std::to_string(LITECH_MINOR) + '.' + std::to_string(LITECH_REVISION);
     SDL_Init(SDL_INIT_VIDEO);
     rt.window = SDL_CreateWindow(title.c_str(), rt.width, rt.height, SDL_WINDOW_OPENGL);
+    liTechPrint("Running on %s with %d cores", LITECH_PLATFORM_NAME(), LITECH_CPU_COUNT());
+    liTechPrint("Using SDL version %d.%d.%d", SDL_VERSIONNUM_MAJOR(SDL_VERSION), SDL_VERSIONNUM_MINOR(SDL_VERSION), SDL_VERSIONNUM_MICRO(SDL_VERSION));
     rt.context = liNew<liGraphicsContext>(rt.window);
     rt.keyboard = liNew<liKeyboard>();
     rt.mouse = liNew<liMouse>();
