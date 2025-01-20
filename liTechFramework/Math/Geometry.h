@@ -1,11 +1,14 @@
 #ifndef LITECHFRAMEWORK_GEOMETRY_H
 #define LITECHFRAMEWORK_GEOMETRY_H
 #include "Utility/Resource.h"
+#include "Utility/Hash.h"
 
 struct liVertex3D {
     liVector3f position;
     liVector2f texCoord;
     liVector3f normal;
+
+    LITECH_INLINE ulong_t Hash() const { return position.Hash() + texCoord.Hash() + normal.Hash(); }
 };
 
 template <class VertexType = liVertex3D>
@@ -14,7 +17,7 @@ public:
     using VertexList = std::vector<VertexType>;
 
     liGeometry() {
-        this->hash = 0;
+        CalculateHash();
     }
 
     liGeometry(VertexList vertices, liUIntBuffer indices) {
@@ -61,7 +64,12 @@ public:
     }
 
     void CalculateHash() {
-        this->hash = 0;
+        ulong_t newHash = 0;
+        for(VertexType vertex : vertices) {
+            newHash += vertex.Hash();
+        }
+        newHash += liTechHash(indices);
+        this->hash = newHash;
     }
     
     LITECH_INLINE VertexType* Vertices() { return vertices.data(); }
