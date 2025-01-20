@@ -59,7 +59,7 @@ typedef std::vector<bool> liBoolBuffer;
 typedef std::vector<int> liIntBuffer;
 typedef std::vector<unsigned int> liUIntBuffer;
 typedef std::vector<float> liFloatBuffer;
-typedef std::vector<float> liCharBuffer;
+typedef std::vector<char> liCharBuffer;
 
 // Some wrappers
 #include "Utility/Print.h"
