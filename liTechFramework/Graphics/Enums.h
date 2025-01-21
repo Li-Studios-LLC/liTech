@@ -7,4 +7,19 @@ enum class shaderType_t {
     MAIN // 3D
 };
 
+enum class shaderDataType_t {
+    VEC2,
+    VEC3,
+    VEC4,
+    MAT4,
+    INT,
+    FLOAT,
+    SAMPLER2D
+};
+
+enum class shaderDesignation_t {
+    VERTEX,
+    PIXEL
+};
+
 #endif
