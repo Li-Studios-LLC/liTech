@@ -11,6 +11,9 @@ public:
     void Destroy();
     void Swap();
     void SetVsync(bool vsync = true);
+    std::string Renderer() const;
+    std::string Vendor() const;
+    std::string Version() const;
 private:
     SDL_Window* window;
     SDL_GLContext context;

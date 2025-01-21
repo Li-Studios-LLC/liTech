@@ -38,11 +38,17 @@ public:
     void AddResource(liResourceID id, liResource* resource);
     void DeleteResource(liResourceID id);
     void ClearResources();
+
+    template <typename T>
+    LITECH_INLINE T* GetResource(liResourceID id) {
+        return (T*)resources[id];
+    }
 private:
     liResourceMap resources;
 };
 
-#define LITECH_ADD_RESOURCE(resource) liResourceManager::Instance->AddResource(GenerateID(), resource)
-#define LITECH_DELETE_RESOURCE(id) liResourceManager::Instance->DeleteResource(id)
+#define LITECH_ADD_RESOURCE(resource) liResourceManager::Instance()->AddResource(liResourceManager::GenerateID(), (liResource*)resource)
+#define LITECH_DELETE_RESOURCE(id) liResourceManager::Instance()->DeleteResource(id)
+#define LITECH_GET_RESOURCE(type, id) liResourceManager::Instance()->GetResource<type>(id)
 
 #endif

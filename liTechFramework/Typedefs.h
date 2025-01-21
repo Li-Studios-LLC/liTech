@@ -25,12 +25,10 @@
 #define LITECH_BIT(x) (1 << x)
 #define LITECH_OK 1
 #define LITECH_BAD -1
-#define LITECH_PI 3.141592f
-#define LITECH_RADIANS(degrees) (degrees * LILIB_PI / 180)
-#define LITECH_DEGREES(radians) (degrees * 180 / LILIB_PI)
 #define LITECH_TIMESTAMP() (ulong_t)(time(NULL))
 #define LITECH_PLATFORM_NAME() (SDL_GetPlatform())
-#define LITECH_CPU_COUNT() (SDL_GetCPUCount())
+#define LITECH_CPU_COUNT() (SDL_GetNumLogicalCPUCores())
+#define LITECH_MAIN_THREAD() (SDL_IsMainThread())
 #define LITECH_DELETE_INSTANCE(class) (delete class::Instance())
 
 typedef unsigned char ubyte_t;
@@ -56,11 +54,13 @@ typedef unsigned int ghandle_t;
 #include <memory>
 #include <glad/gles2.h>
 #include <SDL3/SDL.h>
+#include <tinyxml2.h>
 
 typedef std::vector<bool> liBoolBuffer;
 typedef std::vector<int> liIntBuffer;
+typedef std::vector<unsigned int> liUIntBuffer;
 typedef std::vector<float> liFloatBuffer;
-typedef std::vector<float> liCharBuffer;
+typedef std::vector<char> liCharBuffer;
 
 // Some wrappers
 #include "Utility/Print.h"

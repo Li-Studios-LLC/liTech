@@ -18,6 +18,9 @@ void liGraphicsContext::Initialize() {
     SDL_GL_MakeCurrent(window, context);
     gladLoadGLES2((GLADloadfunc)SDL_GL_GetProcAddress);
     SetVsync();
+
+    std::string info = "GPU specs:\n\t" + Renderer() + "\n\t" + Version();
+    liTechPrint("%s", info.c_str());
 }
 
 void liGraphicsContext::Destroy() {
@@ -31,4 +34,16 @@ void liGraphicsContext::Swap() {
 void liGraphicsContext::SetVsync(bool vsync) {
     this->vsync = vsync;
     SDL_GL_SetSwapInterval(vsync);
+}
+
+std::string liGraphicsContext::Renderer() const {
+    return std::string((const char*)glGetString(GL_RENDERER));
+}
+
+std::string liGraphicsContext::Vendor() const {
+    return std::string((const char*)glGetString(GL_VENDOR));
+}
+
+std::string liGraphicsContext::Version() const {
+    return std::string((const char*)glGetString(GL_VERSION));
 }

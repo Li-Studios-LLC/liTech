@@ -14,7 +14,7 @@ if(WIN32)
 endif()
 
 set_target_properties(Runtime PROPERTIES FOLDER "Applications")
-target_link_libraries(Runtime liTechFramework SDL3)
+target_link_libraries(Runtime liTechFramework SDL3 tinyxml2)
 target_include_directories(Runtime PUBLIC ${PROJECT_SOURCE_DIR})
 target_include_directories(Runtime PUBLIC ${PROJECT_SOURCE_DIR}/liTech-dependencies/Include)
 target_link_directories(Runtime PUBLIC ${PROJECT_SOURCE_DIR}/liTech-dependencies/Lib)
