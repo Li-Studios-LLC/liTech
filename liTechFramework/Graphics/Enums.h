@@ -4,7 +4,8 @@
 enum class shaderType_t {
     UI,
     CANVAS, // 2D
-    MAIN // 3D
+    MAIN, // 3D
+    COMPUTE
 };
 
 enum class shaderDataType_t {
@@ -19,7 +20,8 @@ enum class shaderDataType_t {
 
 enum class shaderDesignation_t {
     VERTEX,
-    PIXEL
+    PIXEL,
+    COMPUTE
 };
 
 #endif

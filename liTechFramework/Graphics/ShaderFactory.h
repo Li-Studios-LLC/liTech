@@ -18,6 +18,7 @@ public:
 
     LITECH_INLINE std::string VertexCode() const { return vertexStream.str(); }
     LITECH_INLINE std::string PixelCode() const { return pixelStream.str(); }
+    LITECH_INLINE std::string ComputeCode() const { return computeStream.str(); }
 private:
     void _AddVertexBuiltins();
     void _AddPixelBuiltins();
@@ -25,7 +26,7 @@ private:
     static std::string _GetDataTypeTag(shaderDataType_t dtype);
 
     shaderType_t type;
-    std::stringstream vertexStream, pixelStream;
+    std::stringstream vertexStream, pixelStream, computeStream;
     std::unordered_map<std::string, shaderUniform_t> uniforms;
 };
 

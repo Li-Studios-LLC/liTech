@@ -11,35 +11,38 @@ liShaderFactory::~liShaderFactory() {
 }
 
 void liShaderFactory::Generate() {
-    // Vertex shader code
-    vertexStream << VERSION_TAG << std::endl;
-    vertexStream << PRECISIONS;
-    vertexStream << "layout (location = 0) in vec3 position;";
-    switch (type) {
-    case shaderType_t::UI:
-    case shaderType_t::CANVAS:
-        vertexStream << "layout (location = 1) in vec2 texCoords;";
-        break;
-    case shaderType_t::MAIN:
-        vertexStream << "layout (location = 1) in vec2 texCoords;";
-        vertexStream << "layout (location = 2) in vec3 normals;";
-        break;
-    }
-    _AddVertexBuiltins();
-    vertexStream << "void main() {";
-    vertexStream << "}";
+    if(type != shaderType_t::COMPUTE) {
+        // Vertex shader code
+        vertexStream << VERSION_TAG << std::endl;
+        vertexStream << PRECISIONS;
+        vertexStream << "layout (location = 0) in vec3 position;";
+        switch (type) {
+        case shaderType_t::UI:
+        case shaderType_t::CANVAS:
+            vertexStream << "layout (location = 1) in vec2 texCoords;";
+            break;
+        case shaderType_t::MAIN:
+            vertexStream << "layout (location = 1) in vec2 texCoords;";
+            vertexStream << "layout (location = 2) in vec3 normals;";
+            break;
+        }
+        _AddVertexBuiltins();
+        vertexStream << "void main() {";
+        vertexStream << "}";
 
-    // Pixel shader code
-    pixelStream << VERSION_TAG << std::endl;
-    pixelStream << PRECISIONS;
-    _AddPixelBuiltins();
-    pixelStream << "void main() {";
-    pixelStream << "}";
+        // Pixel shader code
+        pixelStream << VERSION_TAG << std::endl;
+        pixelStream << PRECISIONS;
+        _AddPixelBuiltins();
+        pixelStream << "void main() {";
+        pixelStream << "}";
+    }
 }
 
 void liShaderFactory::Regenerate() {
     vertexStream.clear();
     pixelStream.clear();
+    computeStream.clear();
     Generate();
 }
 
