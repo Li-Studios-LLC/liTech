@@ -54,6 +54,7 @@ typedef unsigned int ghandle_t;
 #include <memory>
 #include <glad/gles2.h>
 #include <SDL3/SDL.h>
+#include <tinyxml2.h>
 
 typedef std::vector<bool> liBoolBuffer;
 typedef std::vector<int> liIntBuffer;
