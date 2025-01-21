@@ -52,6 +52,8 @@ typedef unsigned int ghandle_t;
 #include <bitset>
 #include <string>
 #include <memory>
+#include <sstream>
+#include <string>
 #include <glad/gles2.h>
 #include <SDL3/SDL.h>
 #include <tinyxml2.h>
