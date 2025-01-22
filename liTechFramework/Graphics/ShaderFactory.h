@@ -19,6 +19,7 @@ public:
     LITECH_INLINE std::string VertexCode() const { return vertexStream.str(); }
     LITECH_INLINE std::string PixelCode() const { return pixelStream.str(); }
     LITECH_INLINE std::string ComputeCode() const { return computeStream.str(); }
+    LITECH_INLINE shaderType_t Type() const { return type; }
 private:
     void _AddVertexBuiltins();
     void _AddPixelBuiltins();
