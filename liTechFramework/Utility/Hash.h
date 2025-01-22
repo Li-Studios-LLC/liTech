@@ -12,6 +12,7 @@ ulong_t liTechHash(const T& ptr) {
     return hash;
 }
 
+ulong_t liTechHashBuffer(void* ptr, ulong_t size);
 template <>
 ulong_t liTechHash<liBoolBuffer>(const liBoolBuffer& ptr);
 template <>
@@ -22,5 +23,7 @@ template <>
 ulong_t liTechHash<liFloatBuffer>(const liFloatBuffer& ptr);
 template <>
 ulong_t liTechHash<liCharBuffer>(const liCharBuffer& ptr);
+template <>
+ulong_t liTechHash<std::string>(const std::string& ptr);
 
 #endif
