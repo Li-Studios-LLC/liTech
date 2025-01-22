@@ -15,7 +15,8 @@ public:
         Delete();
         Initialize();
     }
-
+    
+    LITECH_INLINE ulong_t GetHandle(ghandle_t index = 0) const { return handles[index]; }
     LITECH_INLINE ulong_t Hash() const { return hash; }
 protected:
     ghandle_t handles[handleCount];
