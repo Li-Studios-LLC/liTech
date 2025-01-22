@@ -66,7 +66,7 @@ void liShaderFactory::_AddVertexBuiltins() {
             vertexStream << _GetDataTypeTag(uniform.dtype) << " " << uniform.name << ";";
         }
     }
-    vertexStream << "}";
+    vertexStream << "};";
 }
 
 void liShaderFactory::_AddPixelBuiltins() {
@@ -78,7 +78,7 @@ void liShaderFactory::_AddPixelBuiltins() {
             pixelStream << _GetDataTypeTag(uniform.dtype) << " " << uniform.name << ";";
         }
     }
-    pixelStream << "}";
+    pixelStream << "};";
     pixelStream << "out vec4 outColor;";
 }
 
