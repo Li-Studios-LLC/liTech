@@ -15,6 +15,8 @@ public:
     void Generate();
     void Regenerate();
     void AddUniform(std::string name, shaderDataType_t dtype, shaderDesignation_t designation);
+    void AddVertexModifier(std::string mod);
+    void AddPixelModifier(std::string mod);
 
     LITECH_INLINE std::string VertexCode() const { return vertexStream.str(); }
     LITECH_INLINE std::string PixelCode() const { return pixelStream.str(); }
@@ -23,12 +25,12 @@ public:
 private:
     void _AddVertexBuiltins();
     void _AddPixelBuiltins();
-    static void _AddBuiltins(std::stringstream& stream);
     static std::string _GetDataTypeTag(shaderDataType_t dtype);
 
     shaderType_t type;
     std::stringstream vertexStream, pixelStream, computeStream;
     std::unordered_map<std::string, shaderUniform_t> uniforms;
+    std::vector<std::string> pixelModifiers, vertexModifiers;
 };
 
 #endif

@@ -1,7 +1,8 @@
 #include "ShaderFactory.h"
 
-#define VERSION_TAG "#version 320 es"
-#define PRECISIONS "precision mediump float;"
+#define VERSION_TAG "#version 460 core"
+#define MATERIAL_INPUT_STRUCT "struct MaterialInput {sampler2D img;vec4 value;int flags;};"
+#define MATERIAL_STRUCT "struct Material {MaterialInput diffuse;};"
 
 liShaderFactory::liShaderFactory(shaderType_t type) {
     this->type = type;
@@ -11,10 +12,12 @@ liShaderFactory::~liShaderFactory() {
 }
 
 void liShaderFactory::Generate() {
-    if(type != shaderType_t::COMPUTE) {
+    switch(type) {
+    case shaderType_t::CANVAS:
+    case shaderType_t::UI:
+    case shaderType_t::MAIN:
         // Vertex shader code
         vertexStream << VERSION_TAG << std::endl;
-        vertexStream << PRECISIONS;
         vertexStream << "layout (location = 0) in vec3 position;";
         switch (type) {
         case shaderType_t::UI:
@@ -28,14 +31,24 @@ void liShaderFactory::Generate() {
         }
         _AddVertexBuiltins();
         vertexStream << "void main() {";
+        vertexStream << "vec4 calculatedPosition = vec4(position, 1);";
+        for(std::string mod : vertexModifiers) {
+            vertexStream << "position=" << mod << ';';
+        }
+        vertexStream << "gl_Position = calculatedPosition;";
         vertexStream << "}";
 
         // Pixel shader code
         pixelStream << VERSION_TAG << std::endl;
-        pixelStream << PRECISIONS;
         _AddPixelBuiltins();
         pixelStream << "void main() {";
+        for(std::string mod : pixelModifiers) {
+            pixelStream << "outColor=" << mod << ';';
+        }
         pixelStream << "}";
+        break;
+    case shaderType_t::COMPUTE:
+        break;
     }
 }
 
@@ -54,35 +67,46 @@ void liShaderFactory::AddUniform(std::string name, shaderDataType_t dtype, shade
     uniforms.emplace(name, uniform);
 }
 
+void liShaderFactory::AddVertexModifier(std::string mod) {
+    vertexModifiers.push_back(mod);
+}
+
+void liShaderFactory::AddPixelModifier(std::string mod) {
+    pixelModifiers.push_back(mod);
+}
+
 void liShaderFactory::_AddVertexBuiltins() {
-    _AddBuiltins(vertexStream);
-    vertexStream << "layout(std140) uniform VertexUniform {";
-    vertexStream << "mat4 projection;";
-    vertexStream << "mat4 view;";
-    vertexStream << "mat4 model;";
+    vertexStream << "uniform mat4 projection;";
+    vertexStream << "uniform mat4 view;";
+    vertexStream << "uniform mat4 model;";
     for(liUniformMapIt it = uniforms.begin(); it != uniforms.end(); it++) {
         shaderUniform_t uniform = it->second;
         if(uniform.designation == shaderDesignation_t::VERTEX) {
-            vertexStream << _GetDataTypeTag(uniform.dtype) << " " << uniform.name << ";";
+            vertexStream << "uniform " << _GetDataTypeTag(uniform.dtype) << " " << uniform.name << ';';
         }
     }
-    vertexStream << "};";
 }
 
 void liShaderFactory::_AddPixelBuiltins() {
-    _AddBuiltins(pixelStream);
-    pixelStream << "layout(std140) uniform PixelUniform {";
+    switch (type) {
+    case shaderType_t::MAIN:
+        pixelStream << MATERIAL_INPUT_STRUCT << MATERIAL_STRUCT;
+        break;
+    }
+
     for(liUniformMapIt it = uniforms.begin(); it != uniforms.end(); it++) {
         shaderUniform_t uniform = it->second;
         if(uniform.designation == shaderDesignation_t::PIXEL) {
-            pixelStream << _GetDataTypeTag(uniform.dtype) << " " << uniform.name << ";";
+            pixelStream << "uniform " << _GetDataTypeTag(uniform.dtype) << " " << uniform.name << ';';
         }
     }
-    pixelStream << "};";
+    
+    switch (type) {
+    case shaderType_t::MAIN:
+        pixelStream << "uniform Material material;";
+        break;
+    }
     pixelStream << "out vec4 outColor;";
-}
-
-void liShaderFactory::_AddBuiltins(std::stringstream& stream) {
 }
 
 std::string liShaderFactory::_GetDataTypeTag(shaderDataType_t dtype) {
@@ -98,7 +122,7 @@ std::string liShaderFactory::_GetDataTypeTag(shaderDataType_t dtype) {
     case shaderDataType_t::FLOAT:
         return "float";
     case shaderDataType_t::SAMPLER2D:
-        return "sampler2d";
+        return "sampler2D";
     case shaderDataType_t::INT:
     default:
         return "int";
