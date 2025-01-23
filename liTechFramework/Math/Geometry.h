@@ -57,6 +57,16 @@ public:
         CalculateHash();
     }
 
+    void SetVertices(VertexList vertices) {
+        this->vertices = vertices;
+        CalculateHash();
+    }
+
+    void SetIndices(liUIntBuffer indices) {
+        this->indices = indices;
+        CalculateHash();
+    }
+
     void Clear() {
         vertices.clear();
         indices.clear();
