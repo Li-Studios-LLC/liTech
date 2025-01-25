@@ -1,7 +1,7 @@
 #ifndef LITECHFRAMEWORK_MESH_H
 #define LITECHFRAMEWORK_MESH_H
 #include "GraphicsObject.h"
-#include "Math/Lib.h"
+#include "Math/Geometry.h"
 
 struct drawRange_t {
     uint_t start;

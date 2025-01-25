@@ -2,6 +2,7 @@
 #define LITECHFRAMEWORK_GEOMETRY_H
 #include "Utility/Resource.h"
 #include "Utility/Hash.h"
+#include "Vectors.h"
 
 struct liVertex3D {
     liVector3f position;
