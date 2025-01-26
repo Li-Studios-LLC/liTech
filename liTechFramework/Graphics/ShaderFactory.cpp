@@ -31,7 +31,7 @@ void liShaderFactory::Generate() {
         }
         _AddVertexBuiltins();
         vertexStream << "void main() {";
-        vertexStream << "vec4 calculatedPosition = vec4(position, 1);";
+        vertexStream << "vec4 calculatedPosition = projection * view * model * vec4(position, 1);";
         for(std::string mod : vertexModifiers) {
             vertexStream << "position=" << mod << ';';
         }
