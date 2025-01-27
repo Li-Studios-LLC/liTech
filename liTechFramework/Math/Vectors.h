@@ -14,7 +14,7 @@ struct liVector2f {
     LITECH_INLINE ulong_t Hash() const { return liTechHash<liVector2f>(*this); }
     LITECH_INLINE float* ToPtr() { return &x; }
     LITECH_INLINE const float* ToPtr() const { return &x; }
-    LITECH_INLINE float operator[](int index) { return ToPtr()[index]; }
+    LITECH_INLINE float& operator[](int index) { return ToPtr()[index]; }
     LITECH_INLINE const float operator[](int index) const { return ToPtr()[index]; }
 };
 
@@ -29,7 +29,7 @@ struct liVector3f {
     LITECH_INLINE ulong_t Hash() const { return liTechHash<liVector3f>(*this); }
     LITECH_INLINE float* ToPtr() { return &x; }
     LITECH_INLINE const float* ToPtr() const { return &x; }
-    LITECH_INLINE float operator[](int index) { return ToPtr()[index]; }
+    LITECH_INLINE float& operator[](int index) { return ToPtr()[index]; }
     LITECH_INLINE const float operator[](int index) const { return ToPtr()[index]; }
 };
 
@@ -44,7 +44,7 @@ struct liVector4f {
     LITECH_INLINE ulong_t Hash() const { return liTechHash<liVector4f>(*this); }
     LITECH_INLINE float* ToPtr() { return &x; }
     LITECH_INLINE const float* ToPtr() const { return &x; }
-    LITECH_INLINE float operator[](int index) { return ToPtr()[index]; }
+    LITECH_INLINE float& operator[](int index) { return ToPtr()[index]; }
     LITECH_INLINE const float operator[](int index) const { return ToPtr()[index]; }
 };
 
