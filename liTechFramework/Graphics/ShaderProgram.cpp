@@ -1,4 +1,5 @@
 #include "ShaderProgram.h"
+#include "math/Matrices.h"
 
 liShaderProgram::liShaderProgram() {
     Initialize();
@@ -69,8 +70,46 @@ void liShaderProgram::Unbind() {
     glUseProgram(0);
 }
 
+void liShaderProgram::ClearUniforms() {
+    uniforms.clear();
+}
+
+void liShaderProgram::Load(std::string name, int v) {
+    glUniform1i(_GetUniformLocation(name), v);
+}
+
+void liShaderProgram::Load(std::string name, float v) {
+    glUniform1f(_GetUniformLocation(name), v);
+}
+
+void liShaderProgram::Load(std::string name, liVector2f vec) {
+    glUniform2f(_GetUniformLocation(name), vec.x, vec.y);
+}
+
+void liShaderProgram::Load(std::string name, liVector3f vec) {
+    glUniform3f(_GetUniformLocation(name), vec.x, vec.y, vec.z);
+}
+
+void liShaderProgram::Load(std::string name, liVector4f vec) {
+    glUniform4f(_GetUniformLocation(name), vec.x, vec.y, vec.z, vec.w);
+}
+
+void liShaderProgram::Load(std::string name, liMatrix4f mat) {
+    glUniformMatrix4fv(_GetUniformLocation(name), 1, false, (float*)mat.vecs);
+}
+
 void liShaderProgram::_Attach(liShader* shader) { 
     glUseProgram(handles[0]);
     glAttachShader(handles[0], vertex->GetHandle());
     glUseProgram(0);
+}
+
+int liShaderProgram::_GetUniformLocation(std::string name) {
+    if(uniforms.find(name) != uniforms.end()) {
+        return uniforms[name];
+    } else {
+        int location = glGetUniformLocation(handles[0], name.c_str());
+        uniforms.emplace(name, location);
+        return location;
+    }
 }
