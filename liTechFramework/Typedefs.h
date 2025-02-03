@@ -30,9 +30,9 @@
 #define LITECH_CPU_COUNT() (SDL_GetNumLogicalCPUCores())
 #define LITECH_MAIN_THREAD() (SDL_IsMainThread())
 #define LITECH_DELETE_INSTANCE(class) (delete class::Instance())
-#define LITECH_PI 3.141592f
-#define LITECH_RADIANS(degrees) (degrees * LITECH_PI / 180)
-#define LITECH_DEGREES(radians) (radians * 180 / LITECH_PI)
+#define LITECH_PI 3.14159265359f
+#define LITECH_RADIANS(degrees) ((degrees) * LITECH_PI / 180)
+#define LITECH_DEGREES(radians) ((radians) * 180 / LITECH_PI)
 
 typedef unsigned char ubyte_t;
 typedef char byte_t;
@@ -57,6 +57,7 @@ typedef unsigned int ghandle_t;
 #include <memory>
 #include <sstream>
 #include <string>
+#include <math.h>
 #include <glad/gles2.h>
 #include <SDL3/SDL.h>
 #include <tinyxml2.h>
