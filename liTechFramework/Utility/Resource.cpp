@@ -39,7 +39,7 @@ void liResourceManager::ClearResources() {
     for(liResourceMap::iterator it = resources.begin(); it != resources.end(); it++) {
         liResourceID id = it->first;
         liResource* resource = it->second;
-        liTechPrint("Clearing resource %s at %p", id.c_str(), resource);
+        liTechPrint("Clearing resource %s/%s/%p", typeid(*resource).name(), id.c_str(), resource);
         liDelete(resources[id]);
     }
     resources.clear();
