@@ -13,8 +13,12 @@ public:
     liResource();
     virtual ~liResource();
     
+    virtual void CalculateHash() = 0;
+
     LITECH_INLINE liResourceID ID() const { return id; }
-private:
+    LITECH_INLINE ulong_t Hash() const { return hash; }
+protected:
+    ulong_t hash;
     liResourceID id;
 };
 

@@ -16,10 +16,8 @@ public:
     }
     
     LITECH_INLINE ulong_t GetHandle(ghandle_t index = 0) const { return handles[index]; }
-    LITECH_INLINE ulong_t Hash() const { return hash; }
 protected:
     ghandle_t handles[0x10];
-    ulong_t hash;
 };
 
 #endif
