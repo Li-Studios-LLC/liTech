@@ -1,5 +1,5 @@
 #include "ShaderProgram.h"
-#include "math/Matrices.h"
+#include "Math/Matrices.h"
 
 liShaderProgram::liShaderProgram() {
     Initialize();
@@ -43,6 +43,7 @@ int liShaderProgram::Link(shaderType_t type) {
     default:
         break;
     }
+    CalculateHash();
 
     return LITECH_OK;
 }
