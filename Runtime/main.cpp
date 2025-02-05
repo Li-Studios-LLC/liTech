@@ -6,7 +6,10 @@
 #include <liTechFramework/Input/Mouse.h>
 #include <liTechFramework/Graphics/GraphicsContext.h>
 #include <liTechFramework/Utility/Resource.h>
-#include <liTechFramework/Math/Lib.h>
+#include <liTechFramework/Graphics/ShaderFactory.h>
+#include <liTechFramework/Graphics/ShaderProgram.h>
+#include <liTechFramework/Graphics/Mesh.h>
+#include <liTechFramework/Math/Matrices.h>
 
 struct runtime_t {
     SDL_Window* window;
@@ -14,6 +17,9 @@ struct runtime_t {
     liMouse* mouse;
     liKeyboard* keyboard;
     int width, height;
+    
+    liShaderProgram* program;
+    liMesh* mesh;
 } rt;
 
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
@@ -29,12 +35,56 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     rt.context = liNew<liGraphicsContext>(rt.window);
     rt.keyboard = liNew<liKeyboard>();
     rt.mouse = liNew<liMouse>();
+    
+    liGeometry<>* geometry = liNew<liGeometry<>>();
+    geometry->AddVertex({ { 0.5f, 0.5f, 0.0f }, });
+    geometry->AddVertex({ { 0.5f, -0.5f, 0.0f }, });
+    geometry->AddVertex({ { -0.5f, -0.5f, 0.0f }, });
+    geometry->AddVertex({ { -0.5f, 0.5f, 0.0f }, });
+    geometry->SetIndices({ 0, 1, 3, 1, 2, 3 });
+    LITECH_ADD_RESOURCE(geometry);
+    
+    rt.mesh = liNew<liMesh>(geometry);
+    LITECH_ADD_RESOURCE(rt.mesh);
+
+    {
+        liShaderFactory* factory = liNew<liShaderFactory>(shaderType_t::MAIN);
+        factory->AddPixelModifier("vec4(1, 0, 1, 1)");
+        factory->Generate();
+
+        rt.program = liNew<liShaderProgram>();
+        LITECH_ADD_RESOURCE(rt.program);
+
+        liShader* vertex = liNew<liShader>(shaderDesignation_t::VERTEX);
+        vertex->Compile(factory->VertexCode());
+        rt.program->SetVertex(vertex);
+        LITECH_ADD_RESOURCE(vertex);
+
+        liShader* pixel = liNew<liShader>(shaderDesignation_t::PIXEL);
+        pixel->Compile(factory->PixelCode());
+        rt.program->SetVertex(pixel);
+        LITECH_ADD_RESOURCE(pixel);
+
+        liDelete(factory);
+        rt.program->Link(factory->Type());
+
+        rt.program->Bind();
+        liMatrix4f projection, view, model;
+        projection = liMatrix4f::Perspective(70.0f, (float)rt.width / (float)rt.height, -0.1f, 100000.0f);
+        rt.program->Load("projection", projection);
+        rt.program->Load("view", view);
+        rt.program->Load("model", model);
+    }
 
     return SDL_APP_CONTINUE;
 }
 
 SDL_AppResult SDL_AppIterate(void* appstate) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.25f, 0.25f, 0.25f, 1);
+
+    rt.program->Bind();
+    rt.mesh->Draw();
 
     rt.context->Swap();
     rt.mouse->Update();
