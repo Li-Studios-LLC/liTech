@@ -1,3 +1,6 @@
 [submodule "liTech-dependencies"]
 	path = liTech-dependencies
 	url = https://github.com/Li-Studios-LLC/liTech-dependencies.git
+[submodule "Logos"]
+	path = Logos
+	url = https://github.com/Li-Studios-LLC/logos.git
