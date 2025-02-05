@@ -3,7 +3,7 @@
 #include "GraphicsObject.h"
 #include "Enums.h"
 
-class liShader : public liGraphicsObject<1> {
+class liShader : public liGraphicsObject {
 public:
     liShader(shaderDesignation_t designation);
     ~liShader();

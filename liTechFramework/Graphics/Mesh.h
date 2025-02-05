@@ -16,7 +16,7 @@ enum class meshTopology_t {
     TRIANGLES
 };
 
-class liMesh : public liGraphicsObject<3> {
+class liMesh : public liGraphicsObject {
 public:
     liMesh();
     liMesh(liGeometry<>* geometry);

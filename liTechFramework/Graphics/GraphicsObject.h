@@ -2,7 +2,6 @@
 #define LITECHFRAMEWORK_GRAPHICS_OBJECT_H
 #include "Utility/Resource.h"
 
-template <int handleCount = 1>
 class liGraphicsObject : public liResource {
 public:
     virtual ~liGraphicsObject() { }
@@ -19,7 +18,7 @@ public:
     LITECH_INLINE ulong_t GetHandle(ghandle_t index = 0) const { return handles[index]; }
     LITECH_INLINE ulong_t Hash() const { return hash; }
 protected:
-    ghandle_t handles[handleCount];
+    ghandle_t handles[0x10];
     ulong_t hash;
 };
 

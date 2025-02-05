@@ -7,7 +7,7 @@ struct liVector3f;
 struct liVector4f;
 struct liMatrix4f;
 
-class liShaderProgram : public liGraphicsObject<1> {
+class liShaderProgram : public liGraphicsObject {
 public:
     liShaderProgram();
     ~liShaderProgram();

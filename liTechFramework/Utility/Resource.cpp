@@ -1,4 +1,5 @@
 #include "Resource.h"
+#include "Graphics/GraphicsObject.h"
 
 #define RESOURCEID_LENGTH 0x10
 #define RESOURCEID_CHARS "abcdefghijklmnopqrstuvwxyz0123456789"
@@ -42,4 +43,16 @@ void liResourceManager::ClearResources() {
         liDelete(resources[id]);
     }
     resources.clear();
+}
+
+liGraphicsObject* liResourceManager::GetGraphicsObject(ulong_t hash) {
+    for(liResourceMap::iterator it = resources.begin(); it != resources.end(); it++) {
+        liResource* resource = it->second;
+        if(liGraphicsObject* obj = dynamic_cast<liGraphicsObject*>(resource)) {
+            if(obj->Hash() == hash) {
+                return obj;
+            }
+        }
+    }
+    return nullptr;
 }

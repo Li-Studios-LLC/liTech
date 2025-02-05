@@ -57,6 +57,8 @@ typedef unsigned int ghandle_t;
 #include <memory>
 #include <sstream>
 #include <string>
+#include <typeinfo>
+#include <type_traits>
 #include <math.h>
 #include <glad/gles2.h>
 #include <SDL3/SDL.h>
