@@ -42,7 +42,7 @@ public:
     ~liResourceManager();
 
     static liResourceID GenerateID();
-    void AddResource(liResourceID id, liResource* resource);
+    liResource* AddResource(liResourceID id, liResource* resource);
     void DeleteResource(liResourceID id);
     void ClearResources();
 
@@ -54,8 +54,8 @@ private:
     liResourceMap resources;
 };
 
-#define LITECH_ADD_RESOURCE(resource) liResourceManager::Instance()->AddResource(liResourceManager::GenerateID(), (liResource*)resource)
-#define LITECH_DELETE_RESOURCE(id) liResourceManager::Instance()->DeleteResource(id)
-#define LITECH_GET_RESOURCE(type, id) liResourceManager::Instance()->GetResource<type>(id)
+#define liTechAddResource(type, resource) dynamic_cast<type*>(liResourceManager::Instance()->AddResource(liResourceManager::GenerateID(), (liResource*)resource))
+#define liTechDeleteResource(id) liResourceManager::Instance()->DeleteResource(id)
+#define litechGetResource(type, id) liResourceManager::Instance()->GetResource<type>(id)
 
 #endif

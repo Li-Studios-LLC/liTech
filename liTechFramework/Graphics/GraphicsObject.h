@@ -4,11 +4,12 @@
 
 class liGraphicsObject : public liResource {
 public:
+    liGraphicsObject();
     virtual ~liGraphicsObject() { }
 
     virtual void Initialize() = 0;
     virtual void Delete() = 0;
-    virtual void CalculateHash() = 0;
+    virtual void CalculateHash() override;
 
     void Reinitialize() {
         Delete();

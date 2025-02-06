@@ -19,7 +19,7 @@ void liShader::Delete() {
 }
 
 int liShader::Compile(const std::string& src) {
-    this->hash = liTechHash(src);
+    this->hash += liTechHash(src);
 
     const char* str = src.c_str();
     glShaderSource(handles[0], 1, &str, nullptr);

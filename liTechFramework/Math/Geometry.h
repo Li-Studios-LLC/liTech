@@ -80,7 +80,7 @@ public:
             newHash += vertex.Hash();
         }
         newHash += liTechHash(indices);
-        this->hash = newHash;
+        this->hash += newHash;
     }
     
     LITECH_INLINE VertexType* Vertices() { return vertices.data(); }

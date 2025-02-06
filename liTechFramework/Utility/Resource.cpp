@@ -25,9 +25,17 @@ liResourceID liResourceManager::GenerateID() {
     return id;
 }
 
-void liResourceManager::AddResource(liResourceID id, liResource* resource) {
+liResource* liResourceManager::AddResource(liResourceID id, liResource* resource) {
+    for(liResourceMapIt it = resources.begin(); it != resources.end(); it++) {
+        liResource* current = it->second;
+        if(current->hash == resource->hash && typeid(*current) == typeid(*resource)) {
+            liDelete(resource);
+            return current;
+        }
+    }
     resource->id = id;
     resources.emplace(id, resource);
+    return resource;
 }
 
 void liResourceManager::DeleteResource(liResourceID id) {

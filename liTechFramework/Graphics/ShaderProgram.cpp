@@ -21,7 +21,7 @@ void liShaderProgram::Delete() {
 }
 
 void liShaderProgram::CalculateHash() {
-    this->hash = (vertex ? vertex->Hash() : 0) + (pixel ? pixel->Hash() : 0) + (compute ? compute->Hash() : 0);
+    this->hash += (vertex ? vertex->Hash() : 0) + (pixel ? pixel->Hash() : 0) + (compute ? compute->Hash() : 0);
 }
 
 int liShaderProgram::Link(shaderType_t type) {

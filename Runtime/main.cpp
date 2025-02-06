@@ -44,16 +44,14 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     rt.keyboard = liNew<liKeyboard>();
     rt.mouse = liNew<liMouse>();
     
-    liGeometry<>* geometry = liNew<liGeometry<>>();
+    liGeometry<>* geometry = liTechAddResource(liGeometry<>, liNew<liGeometry<>>());
     geometry->AddVertex({ { 0.5f, 0.5f, 0.0f }, });
     geometry->AddVertex({ { 0.5f, -0.5f, 0.0f }, });
     geometry->AddVertex({ { -0.5f, -0.5f, 0.0f }, });
     geometry->AddVertex({ { -0.5f, 0.5f, 0.0f }, });
     geometry->SetIndices({ 0, 1, 3, 1, 2, 3 });
-    LITECH_ADD_RESOURCE(geometry);
     
-    rt.mesh = liNew<liMesh>(geometry);
-    LITECH_ADD_RESOURCE(rt.mesh);
+    rt.mesh = liTechAddResource(liMesh, liNew<liMesh>(geometry));
 
     {
         liShaderFactory* factory = liNew<liShaderFactory>(shaderType_t::MAIN);
@@ -61,17 +59,17 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
         factory->Generate();
 
         rt.program = liNew<liShaderProgram>();
-        LITECH_ADD_RESOURCE(rt.program);
+        rt.program = liTechAddResource(liShaderProgram, rt.program);
 
         liShader* vertex = liNew<liShader>(shaderDesignation_t::VERTEX);
         vertex->Compile(factory->VertexCode());
         rt.program->SetVertex(vertex);
-        LITECH_ADD_RESOURCE(vertex);
+        vertex = liTechAddResource(liShader, vertex);
 
         liShader* pixel = liNew<liShader>(shaderDesignation_t::PIXEL);
         pixel->Compile(factory->PixelCode());
         rt.program->SetVertex(pixel);
-        LITECH_ADD_RESOURCE(pixel);
+        pixel = liTechAddResource(liShader, pixel);
 
         liDelete(factory);
         rt.program->Link(factory->Type());

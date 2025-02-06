@@ -5,8 +5,7 @@
 #define IBO_HANDLE 2
 
 liMesh::liMesh() {
-	this->geometry = liNew<liGeometry<>>();
-	LITECH_ADD_RESOURCE(geometry);
+	liTechAddResource(liGeometry<>, liNew<liGeometry<>>());
 	Initialize();
 }
 
@@ -50,7 +49,7 @@ void liMesh::Delete() {
 }
 
 void liMesh::CalculateHash() {
-	this->hash = geometry->Hash();
+	this->hash += geometry->Hash();
 }
 
 void liMesh::Draw(drawRange_t range, meshTopology_t topology) {
