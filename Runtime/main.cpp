@@ -28,12 +28,15 @@ struct runtime_t {
 } rt;
 
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
+    if(!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)) {
+        liTechPrint("Failed to initialize SDL!");
+        return  SDL_APP_FAILURE;
+    }
     liHeap* heap = liHeap::Instance();
     liResourceManager* resource = liResourceManager::Instance();
     rt.width = 1280;
     rt.height = 720;
     std::string title = "liTech " + std::to_string(LITECH_MAJOR) + '.' + std::to_string(LITECH_MINOR) + '.' + std::to_string(LITECH_REVISION);
-    SDL_Init(SDL_INIT_VIDEO);
     rt.window = SDL_CreateWindow(title.c_str(), rt.width, rt.height, SDL_WINDOW_OPENGL);
     liTechPrint("Running on %s with %d cores", LITECH_PLATFORM_NAME(), LITECH_CPU_COUNT());
     liTechPrint("Using SDL version %d.%d.%d", SDL_VERSIONNUM_MAJOR(SDL_VERSION), SDL_VERSIONNUM_MINOR(SDL_VERSION), SDL_VERSIONNUM_MICRO(SDL_VERSION));
