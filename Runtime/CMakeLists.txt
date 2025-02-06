@@ -11,6 +11,7 @@ if(WIN32)
         $<TARGET_FILE_DIR:Runtime>)
 
     target_link_libraries(Runtime opengl32)
+    target_link_options(Runtime PRIVATE "$<$<CONFIG:Release>:/SUBSYSTEM:WINDOWS>" "$<$<CONFIG:Debug>:/SUBSYSTEM:CONSOLE>")
 endif()
 
 set_target_properties(Runtime PROPERTIES FOLDER "Applications")

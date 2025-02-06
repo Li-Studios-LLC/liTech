@@ -35,7 +35,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     liHeap* heap = liHeap::Instance();
     liResourceManager* resource = liResourceManager::Instance();
     rt.width = 1280;
-    rt.height = 720;
+    rt.height = 800;
     std::string title = "liTech " + std::to_string(LITECH_MAJOR) + '.' + std::to_string(LITECH_MINOR) + '.' + std::to_string(LITECH_REVISION);
     rt.window = SDL_CreateWindow(title.c_str(), rt.width, rt.height, SDL_WINDOW_OPENGL);
     liTechPrint("Running on %s with %d cores", LITECH_PLATFORM_NAME(), LITECH_CPU_COUNT());
