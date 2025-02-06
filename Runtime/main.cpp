@@ -11,6 +11,11 @@
 #include <liTechFramework/Graphics/Mesh.h>
 #include <liTechFramework/Math/Matrices.h>
 
+extern "C" {
+    LITECH_EXPORT unsigned long NvOptimusEnablement = 0x00000001;
+    LITECH_EXPORT int AmdPowerXpressRequestHighPerformance = 1;
+}
+
 struct runtime_t {
     SDL_Window* window;
     liGraphicsContext* context;
