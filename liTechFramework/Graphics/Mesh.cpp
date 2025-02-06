@@ -41,6 +41,7 @@ void liMesh::Initialize() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, geometry->IndexCount() * sizeof(uint_t), geometry->Indices(), GL_STATIC_DRAW);
 
 	glBindVertexArray(0);
+	CalculateHash();
 }
 
 void liMesh::Delete() {

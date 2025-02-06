@@ -23,6 +23,7 @@ protected:
 };
 
 typedef std::unordered_map<liResourceID, liResource*> liResourceMap;
+typedef std::unordered_map<liResourceID, liResource*>::iterator liResourceMapIt;
 
 class liGraphicsObject;
 
@@ -44,7 +45,6 @@ public:
     void AddResource(liResourceID id, liResource* resource);
     void DeleteResource(liResourceID id);
     void ClearResources();
-    liGraphicsObject* GetGraphicsObject(ulong_t hash);
 
     template <typename T>
     LITECH_INLINE T* GetResource(liResourceID id) {

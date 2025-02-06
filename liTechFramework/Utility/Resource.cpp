@@ -36,23 +36,11 @@ void liResourceManager::DeleteResource(liResourceID id) {
 }
 
 void liResourceManager::ClearResources() {
-    for(liResourceMap::iterator it = resources.begin(); it != resources.end(); it++) {
+    for(liResourceMapIt it = resources.begin(); it != resources.end(); it++) {
         liResourceID id = it->first;
         liResource* resource = it->second;
-        liTechPrint("Clearing resource %s/%s/%p", typeid(*resource).name(), id.c_str(), resource);
+        liTechPrint("Clearing resource [type: %s, id: %s, hash: %llu, pointer: %p]", typeid(*resource).name(), id.c_str(), resource->hash, resource);
         liDelete(resources[id]);
     }
     resources.clear();
-}
-
-liGraphicsObject* liResourceManager::GetGraphicsObject(ulong_t hash) {
-    for(liResourceMap::iterator it = resources.begin(); it != resources.end(); it++) {
-        liResource* resource = it->second;
-        if(liGraphicsObject* obj = dynamic_cast<liGraphicsObject*>(resource)) {
-            if(obj->Hash() == hash) {
-                return obj;
-            }
-        }
-    }
-    return nullptr;
 }

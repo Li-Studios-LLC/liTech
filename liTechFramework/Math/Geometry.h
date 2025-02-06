@@ -88,11 +88,9 @@ public:
 
     LITECH_INLINE ulong_t VertexCount() const { return vertices.size(); }
     LITECH_INLINE ulong_t IndexCount() const { return indices.size(); }
-    LITECH_INLINE ulong_t Hash() const { return hash; }
 private:
     std::vector<VertexType> vertices;
     liUIntBuffer indices;
-    ulong_t hash;
 };
 
 #endif
