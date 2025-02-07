@@ -3,7 +3,7 @@
 #define VERSION_TAG "#version 460 core"
 #define MATERIAL_INPUT_STRUCT "struct MaterialInput { sampler2D img; vec4 value; int flags; };"
 #define MATERIAL_STRUCT "struct Material { MaterialInput diffuse; };"
-#define CALCULATE_INPUT_FUNC "vec4 calculateInput(MaterialInput i) { return texture2D(i.img, outTexCoords) * i.value; }"
+#define CALCULATE_INPUT_FUNC "vec4 calculateInput(MaterialInput i) { return texture(i.img, outTexCoords) * i.value; }"
 
 liShaderFactory::liShaderFactory(shaderType_t type) {
     this->type = type;
