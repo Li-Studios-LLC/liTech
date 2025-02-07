@@ -56,6 +56,7 @@ typedef unsigned int ghandle_t;
 #include <string>
 #include <typeinfo>
 #include <type_traits>
+#include <chrono>
 #include <math.h>
 #include <glad/gles2.h>
 #include <SDL3/SDL.h>

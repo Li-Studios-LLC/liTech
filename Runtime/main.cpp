@@ -6,6 +6,7 @@
 #include <liTechFramework/Input/Mouse.h>
 #include <liTechFramework/Graphics/GraphicsContext.h>
 #include <liTechFramework/Utility/Resource.h>
+#include <liTechFramework/Utility/Stopwatch.h>
 #include <liTechFramework/Graphics/ShaderFactory.h>
 #include <liTechFramework/Graphics/ShaderProgram.h>
 #include <liTechFramework/Graphics/Mesh.h>
@@ -22,6 +23,7 @@ struct runtime_t {
     liMouse* mouse;
     liKeyboard* keyboard;
     int width, height;
+    liStopwatch* stopwatch;
     
     liShaderProgram* program;
     liMesh* mesh;
@@ -43,6 +45,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     rt.context = liNew<liGraphicsContext>(rt.window);
     rt.keyboard = liNew<liKeyboard>();
     rt.mouse = liNew<liMouse>();
+    rt.stopwatch = liNew<liStopwatch>();
     
     liGeometry<>* geometry = liTechAddResource(liGeometry<>, liNew<liGeometry<>>());
     geometry->AddVertex({ { 0.5f, 0.5f, 0.0f }, });
@@ -55,11 +58,11 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
 
     {
         liShaderFactory* factory = liNew<liShaderFactory>(shaderType_t::MAIN);
-        factory->AddPixelModifier("vec4(1, 0, 1, 1)");
+        factory->AddUniform("currentColor", shaderDataType_t::VEC4, shaderDesignation_t::PIXEL);
+        factory->AddPixelModifier("currentColor");
         factory->Generate();
 
-        rt.program = liNew<liShaderProgram>();
-        rt.program = liTechAddResource(liShaderProgram, rt.program);
+        rt.program = liTechAddResource(liShaderProgram, liNew<liShaderProgram>());
 
         liShader* vertex = liNew<liShader>(shaderDesignation_t::VERTEX);
         vertex->Compile(factory->VertexCode());
@@ -86,15 +89,19 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
 }
 
 SDL_AppResult SDL_AppIterate(void* appstate) {
+    rt.stopwatch->Begin();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0.25f, 0.25f, 0.25f, 1);
+    static float r = 0.0f;
 
     rt.program->Bind();
+    rt.program->Load("currentColor", liVector4f(0.25f, 0, 0.5f, 1));
     rt.mesh->Draw();
 
     rt.context->Swap();
     rt.mouse->Update();
     rt.keyboard->Update();
+    rt.stopwatch->End();
     return SDL_APP_CONTINUE;
 }
 
@@ -120,6 +127,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event) {
 }
 
 void SDL_AppQuit(void* appstate, SDL_AppResult result) {
+    liDelete(rt.stopwatch);
     liDelete(rt.mouse);
     liDelete(rt.keyboard);
     liDelete(rt.context);
