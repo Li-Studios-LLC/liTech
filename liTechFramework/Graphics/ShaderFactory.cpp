@@ -1,6 +1,7 @@
 #include "ShaderFactory.h"
 
-#define VERSION_TAG "#version 460 core"
+#define VERSION_TAG "#version 320 es"
+#define PRECISIONS "precision mediump float;"
 #define MATERIAL_INPUT_STRUCT "struct MaterialInput { sampler2D img; vec4 value; float mixValue; bool usesTexture; };"
 #define MATERIAL_STRUCT "struct Material { MaterialInput diffuse; };"
 #define CALCULATE_INPUT_FUNC "vec4 calculateInput(MaterialInput i) { return mix(i.usesTexture ? texture(i.img, outTexCoords) : vec4(1), i.value, i.mixValue); }"
@@ -20,6 +21,7 @@ void liShaderFactory::Generate() {
     case shaderType_t::MAIN:
         // Vertex shader code
         vertexStream << VERSION_TAG << std::endl;
+        vertexStream << PRECISIONS << std::endl;
         _AddVertexBuiltins();
         vertexStream << "void main() {";
         vertexStream << "vec4 calculatedPosition = projection * view * model * vec4(position, 1);";
@@ -29,6 +31,7 @@ void liShaderFactory::Generate() {
 
         // Pixel shader code
         pixelStream << VERSION_TAG << std::endl;
+        pixelStream << PRECISIONS << std::endl;
         _AddPixelBuiltins();
         pixelStream << "void main() {";
         pixelStream << "vec4 diffuse = calculateInput(material.diffuse);";
