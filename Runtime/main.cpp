@@ -23,6 +23,7 @@ struct runtime_t {
     liMouse* mouse;
     liKeyboard* keyboard;
     int width, height;
+    float elapsed;
     liStopwatch* stopwatch;
     
     liShaderProgram* program;
@@ -46,6 +47,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     rt.keyboard = liNew<liKeyboard>();
     rt.mouse = liNew<liMouse>();
     rt.stopwatch = liNew<liStopwatch>();
+    rt.elapsed = 0.0;
     
     liGeometry<>* geometry = liTechAddResource(liGeometry<>, liNew<liGeometry<>>());
     geometry->AddVertex({ { 0.5f, 0.5f, 0.0f }, });
@@ -92,16 +94,18 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     rt.stopwatch->Begin();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0.25f, 0.25f, 0.25f, 1);
-    static float r = 0.0f;
-
+    static float r;
+    rt.elapsed += rt.stopwatch->Seconds();
+    
     rt.program->Bind();
-    rt.program->Load("currentColor", liVector4f(0.25f, 0, 0.5f, 1));
+    rt.program->Load("currentColor", liVector4f(r, 0, 0, 1));
     rt.mesh->Draw();
-
+    
     rt.context->Swap();
     rt.mouse->Update();
     rt.keyboard->Update();
     rt.stopwatch->End();
+    r = 1.0f * sin(0.5f * rt.elapsed);
     return SDL_APP_CONTINUE;
 }
 

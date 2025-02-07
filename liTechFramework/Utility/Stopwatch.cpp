@@ -3,6 +3,7 @@
 using namespace std::chrono;
 
 liStopwatch::liStopwatch(bool startClock) {
+    this->delta = 0.0;
     if(startClock) {
         Begin();
     }
@@ -15,6 +16,5 @@ void liStopwatch::Begin() {
 void liStopwatch::End() {
     this->endPoint = high_resolution_clock::now();
     duration<double> duration = endPoint - beginPoint;
-    this->beginPoint = endPoint;
     this->delta = duration.count();
 }
