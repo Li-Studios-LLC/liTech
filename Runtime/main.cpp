@@ -10,6 +10,7 @@
 #include <liTechFramework/Graphics/ShaderFactory.h>
 #include <liTechFramework/Graphics/ShaderProgram.h>
 #include <liTechFramework/Graphics/Mesh.h>
+#include <liTechFramework/Graphics/Texture2D.h>
 #include <liTechFramework/Math/Matrices.h>
 
 extern "C" {
@@ -28,6 +29,7 @@ struct runtime_t {
     
     liShaderProgram* program;
     liMesh* mesh;
+    liTexture2D* tex;
 } rt;
 
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
@@ -50,13 +52,20 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     rt.elapsed = 0.0;
     
     liGeometry<>* geometry = liTechAddResource(liGeometry<>, liNew<liGeometry<>>());
-    geometry->AddVertex({ { 0.5f, 0.5f, 0.0f }, });
-    geometry->AddVertex({ { 0.5f, -0.5f, 0.0f }, });
-    geometry->AddVertex({ { -0.5f, -0.5f, 0.0f }, });
-    geometry->AddVertex({ { -0.5f, 0.5f, 0.0f }, });
+    geometry->AddVertex({ { 0.5f, 0.5f, 0.0f }, { 1.0f, 1.0f } });
+    geometry->AddVertex({ { 0.5f, -0.5f, 0.0f }, { 1.0f, 0.0f } });
+    geometry->AddVertex({ { -0.5f, -0.5f, 0.0f }, { 0.0f, 0.0f } });
+    geometry->AddVertex({ { -0.5f, 0.5f, 0.0f }, { 0.0f, 1.0f } });
     geometry->SetIndices({ 0, 1, 3, 1, 2, 3 });
     
     rt.mesh = liTechAddResource(liMesh, liNew<liMesh>(geometry));
+
+    rt.tex = liTechAddResource(liTexture2D, liNew<liTexture2D>());
+    ubyte_t pixels[] = {255, 0, 0, 255,
+                        0, 0, 0, 255,
+                        0, 0, 0, 255};
+                        0, 0, 255, 255,
+    rt.tex->Load(pixels, 2, 2, 4);
 
     {
         liShaderFactory* factory = liNew<liShaderFactory>(shaderType_t::MAIN);
@@ -97,7 +106,9 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     rt.elapsed += rt.stopwatch->Seconds();
     
     rt.program->Bind();
-    rt.program->Load("material.diffuse.usesTexture", false);
+    rt.tex->Bind();
+    rt.program->Load("material.diffuse.usesTexture", true);
+    rt.program->Load("material.diffuse.mixValue", 0.5f);
     rt.program->Load("material.diffuse.value", liVector4f(r, g, b, 1));
     rt.mesh->Draw();
     
@@ -105,9 +116,9 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     rt.mouse->Update();
     rt.keyboard->Update();
     rt.stopwatch->End();
-    r = 1.0f * sin(0.5f * rt.elapsed);
-    g = 1.0f * sin(0.25f * rt.elapsed);
-    b = 1.0f * sin(0.65f * rt.elapsed);
+    r = 0.5f * sin(0.5f * rt.elapsed);
+    g = 0.5f * sin(0.25f * rt.elapsed);
+    b = 0.5f * sin(0.65f * rt.elapsed);
     return SDL_APP_CONTINUE;
 }
 
