@@ -13,11 +13,8 @@
 #define LITECH_EXPORT
 #endif
 
-#ifdef _DEBUG
-#define LITECH_DEBUG
+#ifdef LITECH_DEBUG
 #define LITECH_VERBOSE_MEMORY
-#else
-#define LITECH_RELEASE
 #endif
 
 #define LITECH_ARRAYSIZE(arr) (sizeof(arr) / sizeof(*arr))

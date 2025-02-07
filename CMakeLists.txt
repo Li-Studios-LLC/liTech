@@ -10,6 +10,12 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 add_compile_definitions(UNICODE _UNICODE _CRT_SECURE_NO_WARNINGS)
 
+add_compile_definitions($<$<CONFIG:Debug>:LITECH_DEBUG>
+      $<$<CONFIG:RelWithDebInfo>:LITECH_DEBUG>
+      $<$<CONFIG:Release>:LITECH_RELEASE>
+      $<$<CONFIG:MinSizeRel>:LITECH_RELEASE>
+)
+
 if(WIN32)
     add_compile_definitions(LITECH_WIN32)
 elseif(UNIX AND NOT APPLE)
