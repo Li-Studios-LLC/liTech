@@ -1,8 +1,9 @@
 #include "ShaderFactory.h"
 
 #define VERSION_TAG "#version 460 core"
-#define MATERIAL_INPUT_STRUCT "struct MaterialInput {sampler2D img;vec4 value;int flags;};"
-#define MATERIAL_STRUCT "struct Material {MaterialInput diffuse;};"
+#define MATERIAL_INPUT_STRUCT "struct MaterialInput { sampler2D img; vec4 value; int flags; };"
+#define MATERIAL_STRUCT "struct Material { MaterialInput diffuse; };"
+#define CALCULATE_INPUT_FUNC "vec4 calculateInput(MaterialInput i) { return texture2D(i.img, outTexCoords) * i.value; }"
 
 liShaderFactory::liShaderFactory(shaderType_t type) {
     this->type = type;
@@ -18,23 +19,10 @@ void liShaderFactory::Generate() {
     case shaderType_t::MAIN:
         // Vertex shader code
         vertexStream << VERSION_TAG << std::endl;
-        vertexStream << "layout (location = 0) in vec3 position;";
-        switch (type) {
-        case shaderType_t::UI:
-        case shaderType_t::CANVAS:
-            vertexStream << "layout (location = 1) in vec2 texCoords;";
-            break;
-        case shaderType_t::MAIN:
-            vertexStream << "layout (location = 1) in vec2 texCoords;";
-            vertexStream << "layout (location = 2) in vec3 normals;";
-            break;
-        }
         _AddVertexBuiltins();
         vertexStream << "void main() {";
         vertexStream << "vec4 calculatedPosition = projection * view * model * vec4(position, 1);";
-        for(std::string mod : vertexModifiers) {
-            vertexStream << "position=" << mod << ';';
-        }
+        vertexStream << "outTexCoords = texCoords;";
         vertexStream << "gl_Position = calculatedPosition;";
         vertexStream << "}";
 
@@ -42,9 +30,8 @@ void liShaderFactory::Generate() {
         pixelStream << VERSION_TAG << std::endl;
         _AddPixelBuiltins();
         pixelStream << "void main() {";
-        for(std::string mod : pixelModifiers) {
-            pixelStream << "outColor=" << mod << ';';
-        }
+        pixelStream << "vec4 diffuse = calculateInput(material.diffuse);";
+        pixelStream << "outColor = diffuse;";
         pixelStream << "}";
         break;
     case shaderType_t::COMPUTE:
@@ -67,18 +54,22 @@ void liShaderFactory::AddUniform(std::string name, shaderDataType_t dtype, shade
     uniforms.emplace(name, uniform);
 }
 
-void liShaderFactory::AddVertexModifier(std::string mod) {
-    vertexModifiers.push_back(mod);
-}
-
-void liShaderFactory::AddPixelModifier(std::string mod) {
-    pixelModifiers.push_back(mod);
-}
-
 void liShaderFactory::_AddVertexBuiltins() {
+    vertexStream << "layout (location = 0) in vec3 position;";
+    switch (type) {
+    case shaderType_t::UI:
+    case shaderType_t::CANVAS:
+        vertexStream << "layout (location = 1) in vec2 texCoords;";
+        break;
+    case shaderType_t::MAIN:
+        vertexStream << "layout (location = 1) in vec2 texCoords;";
+        vertexStream << "layout (location = 2) in vec3 normals;";
+        break;
+    }
     vertexStream << "uniform mat4 projection;";
     vertexStream << "uniform mat4 view;";
     vertexStream << "uniform mat4 model;";
+    vertexStream << "out vec2 outTexCoords;";
     for(liUniformMapIt it = uniforms.begin(); it != uniforms.end(); it++) {
         shaderUniform_t uniform = it->second;
         if(uniform.designation == shaderDesignation_t::VERTEX) {
@@ -88,9 +79,12 @@ void liShaderFactory::_AddVertexBuiltins() {
 }
 
 void liShaderFactory::_AddPixelBuiltins() {
+    pixelStream << "in vec2 outTexCoords;";
+    pixelStream << "out vec4 outColor;";
     switch (type) {
     case shaderType_t::MAIN:
-        pixelStream << MATERIAL_INPUT_STRUCT << MATERIAL_STRUCT;
+        pixelStream << MATERIAL_INPUT_STRUCT << MATERIAL_STRUCT << CALCULATE_INPUT_FUNC;
+        pixelStream << "uniform Material material;";
         break;
     }
 
@@ -100,13 +94,6 @@ void liShaderFactory::_AddPixelBuiltins() {
             pixelStream << "uniform " << _GetDataTypeTag(uniform.dtype) << " " << uniform.name << ';';
         }
     }
-    
-    switch (type) {
-    case shaderType_t::MAIN:
-        pixelStream << "uniform Material material;";
-        break;
-    }
-    pixelStream << "out vec4 outColor;";
 }
 
 std::string liShaderFactory::_GetDataTypeTag(shaderDataType_t dtype) {

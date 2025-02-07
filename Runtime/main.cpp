@@ -61,7 +61,6 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     {
         liShaderFactory* factory = liNew<liShaderFactory>(shaderType_t::MAIN);
         factory->AddUniform("currentColor", shaderDataType_t::VEC4, shaderDesignation_t::PIXEL);
-        factory->AddPixelModifier("currentColor");
         factory->Generate();
 
         rt.program = liTechAddResource(liShaderProgram, liNew<liShaderProgram>());
@@ -98,7 +97,7 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     rt.elapsed += rt.stopwatch->Seconds();
     
     rt.program->Bind();
-    rt.program->Load("currentColor", liVector4f(r, 0, 0, 1));
+    rt.program->Load("material.diffuse.value", liVector4f(r, 0, 0, 1));
     rt.mesh->Draw();
     
     rt.context->Swap();
