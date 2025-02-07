@@ -93,11 +93,12 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     rt.stopwatch->Begin();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0.25f, 0.25f, 0.25f, 1);
-    static float r;
+    static float r, g, b ;
     rt.elapsed += rt.stopwatch->Seconds();
     
     rt.program->Bind();
-    rt.program->Load("material.diffuse.value", liVector4f(r, 0, 0, 1));
+    rt.program->Load("material.diffuse.usesTexture", false);
+    rt.program->Load("material.diffuse.value", liVector4f(r, g, b, 1));
     rt.mesh->Draw();
     
     rt.context->Swap();
@@ -105,6 +106,8 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     rt.keyboard->Update();
     rt.stopwatch->End();
     r = 1.0f * sin(0.5f * rt.elapsed);
+    g = 1.0f * sin(0.25f * rt.elapsed);
+    b = 1.0f * sin(0.65f * rt.elapsed);
     return SDL_APP_CONTINUE;
 }
 

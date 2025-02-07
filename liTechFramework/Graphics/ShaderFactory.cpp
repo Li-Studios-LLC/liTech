@@ -1,9 +1,10 @@
 #include "ShaderFactory.h"
 
 #define VERSION_TAG "#version 460 core"
-#define MATERIAL_INPUT_STRUCT "struct MaterialInput { sampler2D img; vec4 value; int flags; };"
+#define MATERIAL_INPUT_STRUCT "struct MaterialInput { sampler2D img; vec4 value; bool usesTexture; };"
 #define MATERIAL_STRUCT "struct Material { MaterialInput diffuse; };"
-#define CALCULATE_INPUT_FUNC "vec4 calculateInput(MaterialInput i) { return texture(i.img, outTexCoords) * i.value; }"
+#define CALCULATE_INPUT_FUNC "vec4 calculateInput(MaterialInput i) { return i.usesTexture ? texture(i.img, outTexCoords) : vec4(1) * i.value; }"
+#define MATERIAL_CODE (MATERIAL_INPUT_STRUCT MATERIAL_STRUCT CALCULATE_INPUT_FUNC)
 
 liShaderFactory::liShaderFactory(shaderType_t type) {
     this->type = type;
@@ -83,7 +84,7 @@ void liShaderFactory::_AddPixelBuiltins() {
     pixelStream << "out vec4 outColor;";
     switch (type) {
     case shaderType_t::MAIN:
-        pixelStream << MATERIAL_INPUT_STRUCT << MATERIAL_STRUCT << CALCULATE_INPUT_FUNC;
+        pixelStream << MATERIAL_CODE;
         pixelStream << "uniform Material material;";
         break;
     }
