@@ -10,18 +10,17 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 add_compile_definitions(UNICODE _UNICODE _CRT_SECURE_NO_WARNINGS)
 
-add_compile_definitions($<$<CONFIG:Debug>:LITECH_DEBUG>
-      $<$<CONFIG:RelWithDebInfo>:LITECH_DEBUG>
-      $<$<CONFIG:Release>:LITECH_RELEASE>
-      $<$<CONFIG:MinSizeRel>:LITECH_RELEASE>
-)
-
 if(WIN32)
     add_compile_definitions(LITECH_WIN32)
+
+    add_compile_definitions($<$<CONFIG:Debug>:LITECH_DEBUG>
+      $<$<CONFIG:RelWithDebInfo>:LITECH_DEBUG>
+      $<$<CONFIG:Release>:LITECH_RELEASE>
+      $<$<CONFIG:MinSizeRel>:LITECH_RELEASE>)
 elseif(UNIX AND NOT APPLE)
-    add_compile_definitions(LITECH_LINUX)
-elseif(__EMSCRIPTEN__)
-    add_compile_definitions(LITECH_WEB)
+    add_compile_definitions(LITECH_LINUX LITECH_DEBUG LITECH_OPENGLES)
+elseif(APPLE)
+    add_compile_definitions(LITECH_WEB LITECH_RELEASE LITECH_OPENGLES)
 endif()
 
 add_subdirectory(liTechFramework)
