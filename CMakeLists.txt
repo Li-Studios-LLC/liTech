@@ -12,7 +12,7 @@ add_compile_definitions(UNICODE _UNICODE _CRT_SECURE_NO_WARNINGS)
 
 if(WIN32)
     add_compile_definitions(LITECH_WIN32)
-elseif(__linux__)
+elseif(UNIX AND NOT APPLE)
     add_compile_definitions(LITECH_LINUX)
 elseif(__EMSCRIPTEN__)
     add_compile_definitions(LITECH_WEB)

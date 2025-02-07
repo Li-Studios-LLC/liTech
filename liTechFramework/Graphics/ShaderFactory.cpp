@@ -1,6 +1,6 @@
 #include "ShaderFactory.h"
 
-#define VERSION_TAG "#version 460 core"
+#define VERSION_TAG "#version 400 core"
 #define MATERIAL_INPUT_STRUCT "struct MaterialInput {sampler2D img;vec4 value;int flags;};"
 #define MATERIAL_STRUCT "struct Material {MaterialInput diffuse;};"
 
