@@ -10,6 +10,13 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 add_compile_definitions(UNICODE _UNICODE _CRT_SECURE_NO_WARNINGS)
 
+# Some compilers dont have this macro
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_compile_definitions(_DEBUG DEBUG)
+else()
+    add_compile_definitions(_RELEASE RELEASE)
+endif()
+
 add_subdirectory(liTechFramework)
 add_subdirectory(Runtime)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Runtime)
