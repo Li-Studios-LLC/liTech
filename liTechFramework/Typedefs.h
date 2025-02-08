@@ -7,18 +7,6 @@
 
 #ifdef _WIN32
 #define LITECH_WIN32
-#else __linux__
-#define LITECH_LINUX
-#define LITECH_OPENGLES
-#endif
-
-#ifdef _DEBUG
-#define LITECH_DEBUG
-#else
-#define LITECH_RELEASE
-#endif
-
-#ifdef LITECH_WIN32
 #define LITECH_INLINE __forceinline
 #define LITECH_EXPORT __declspec(dllexport)
 #else
@@ -26,8 +14,16 @@
 #define LITECH_EXPORT
 #endif
 
-#ifdef LITECH_DEBUG
+#ifdef __linux__
+#define LITECH_LINUX
+#define LITECH_OPENGLES
+#endif
+
+#ifdef _DEBUG
+#define LITECH_DEBUG
 #define LITECH_VERBOSE_MEMORY
+#else
+#define LITECH_RELEASE
 #endif
 
 #define LITECH_ARRAYSIZE(arr) (sizeof(arr) / sizeof(*arr))
