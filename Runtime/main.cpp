@@ -19,6 +19,7 @@ extern "C" {
 }
 
 struct runtime_t {
+    std::string title;
     SDL_Window* window;
     liGraphicsContext* context;
     liMouse* mouse;
@@ -41,8 +42,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     liResourceManager* resource = liResourceManager::Instance();
     rt.width = 1280;
     rt.height = 800;
-    std::string title = "liTech " + std::to_string(LITECH_MAJOR) + '.' + std::to_string(LITECH_MINOR) + '.' + std::to_string(LITECH_REVISION);
-    rt.window = SDL_CreateWindow(title.c_str(), rt.width, rt.height, SDL_WINDOW_OPENGL);
+    rt.title = "liTech " + std::to_string(LITECH_MAJOR) + '.' + std::to_string(LITECH_MINOR) + '.' + std::to_string(LITECH_REVISION);
+    rt.window = SDL_CreateWindow(rt.title.c_str(), rt.width, rt.height, SDL_WINDOW_OPENGL);
     liTechPrint("Running on %s with %d cores", LITECH_PLATFORM_NAME(), LITECH_CPU_COUNT());
     liTechPrint("Using SDL version %d.%d.%d", SDL_VERSIONNUM_MAJOR(SDL_VERSION), SDL_VERSIONNUM_MINOR(SDL_VERSION), SDL_VERSIONNUM_MICRO(SDL_VERSION));
     rt.context = liNew<liGraphicsContext>(rt.window);
@@ -62,14 +63,13 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
 
     rt.tex = liTechAddResource(liTexture2D, liNew<liTexture2D>());
     ubyte_t pixels[] = {255, 0, 0, 255,
-                        0, 0, 0, 255,
-                        0, 0, 0, 255};
-                        0, 0, 255, 255,
+                        0, 255, 0, 255,
+                        0, 0, 255, 255};
+                        255, 255, 255, 255,
     rt.tex->Load(pixels, 2, 2, 4);
 
     {
         liShaderFactory* factory = liNew<liShaderFactory>(shaderType_t::MAIN);
-        factory->AddUniform("currentColor", shaderDataType_t::VEC4, shaderDesignation_t::PIXEL);
         factory->Generate();
 
         rt.program = liTechAddResource(liShaderProgram, liNew<liShaderProgram>());
@@ -100,6 +100,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
 
 SDL_AppResult SDL_AppIterate(void* appstate) {
     rt.stopwatch->Begin();
+    double deltaTime = rt.stopwatch->Seconds();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0.25f, 0.25f, 0.25f, 1);
     static float r, g, b ;
@@ -116,9 +117,9 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     rt.mouse->Update();
     rt.keyboard->Update();
     rt.stopwatch->End();
-    r = 0.5f * sin(0.5f * rt.elapsed);
-    g = 0.5f * sin(0.25f * rt.elapsed);
-    b = 0.5f * sin(0.65f * rt.elapsed);
+    r = 0.85f * sin(0.9f * rt.elapsed);
+    g = 0.25f * sin(0.9f * rt.elapsed);
+    b = 0.55f * sin(0.9f * rt.elapsed);
     return SDL_APP_CONTINUE;
 }
 
