@@ -5,6 +5,19 @@
 #define LITECH_MINOR 0
 #define LITECH_REVISION 0
 
+#ifdef _WIN32
+#define LITECH_WIN32
+#else __linux__
+#define LITECH_LINUX
+#define LITECH_OPENGLES
+#endif
+
+#ifdef _DEBUG
+#define LITECH_DEBUG
+#else
+#define LITECH_RELEASE
+#endif
+
 #ifdef LITECH_WIN32
 #define LITECH_INLINE __forceinline
 #define LITECH_EXPORT __declspec(dllexport)

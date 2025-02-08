@@ -10,19 +10,6 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 add_compile_definitions(UNICODE _UNICODE _CRT_SECURE_NO_WARNINGS)
 
-if(WIN32)
-    add_compile_definitions(LITECH_WIN32)
-
-    add_compile_definitions($<$<CONFIG:Debug>:LITECH_DEBUG>
-      $<$<CONFIG:RelWithDebInfo>:LITECH_DEBUG>
-      $<$<CONFIG:Release>:LITECH_RELEASE>
-      $<$<CONFIG:MinSizeRel>:LITECH_RELEASE>)
-elseif(UNIX AND NOT APPLE)
-    add_compile_definitions(LITECH_LINUX LITECH_DEBUG LITECH_OPENGLES)
-elseif(APPLE)
-    add_compile_definitions(LITECH_WEB LITECH_RELEASE LITECH_OPENGLES)
-endif()
-
 add_subdirectory(liTechFramework)
 add_subdirectory(Runtime)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Runtime)
