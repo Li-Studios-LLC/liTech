@@ -1,7 +1,7 @@
 #ifndef LITECHFRAMEWORK_KEYBOARD_H
 #define LITECHFRAMEWORK_KEYBOARD_H
 #include "Typedefs.h"
-#include "Interfaces/IInput.h"
+#include "IInput.h"
 
 #define LITECH_KEY_COUNT 0x200
 

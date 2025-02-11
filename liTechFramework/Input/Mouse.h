@@ -1,7 +1,7 @@
 #ifndef LITECHFRAMEWORK_MOUSE_H
 #define LITECHFRAMEWORK_MOUSE_H
 #include "Typedefs.h"
-#include "Interfaces/IInput.h"
+#include "IInput.h"
 
 #define LITECH_MOUSE_BUTTON_COUNT 0x10
 #define LITECH_BUTTON_LEFT 1
