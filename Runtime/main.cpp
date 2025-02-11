@@ -7,11 +7,6 @@
 #include <liTechFramework/Graphics/GraphicsContext.h>
 #include <liTechFramework/Utility/Resource.h>
 #include <liTechFramework/Utility/Stopwatch.h>
-#include <liTechFramework/Graphics/ShaderFactory.h>
-#include <liTechFramework/Graphics/ShaderProgram.h>
-#include <liTechFramework/Graphics/Mesh.h>
-#include <liTechFramework/Graphics/Texture2D.h>
-#include <liTechFramework/Math/Matrices.h>
 
 extern "C" {
     LITECH_EXPORT unsigned long NvOptimusEnablement = 0x00000001;
@@ -27,10 +22,6 @@ struct runtime_t {
     int width, height;
     float elapsed;
     liStopwatch* stopwatch;
-    
-    liShaderProgram* program;
-    liMesh* mesh;
-    liTexture2D* tex;
 } rt;
 
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
@@ -51,49 +42,6 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     rt.mouse = liNew<liMouse>();
     rt.stopwatch = liNew<liStopwatch>();
     rt.elapsed = 0.0;
-    
-    liGeometry<>* geometry = liTechAddResource(liGeometry<>, liNew<liGeometry<>>());
-    geometry->AddVertex({ { 0.5f, 0.5f, 0.0f }, { 1.0f, 1.0f } });
-    geometry->AddVertex({ { 0.5f, -0.5f, 0.0f }, { 1.0f, 0.0f } });
-    geometry->AddVertex({ { -0.5f, -0.5f, 0.0f }, { 0.0f, 0.0f } });
-    geometry->AddVertex({ { -0.5f, 0.5f, 0.0f }, { 0.0f, 1.0f } });
-    geometry->SetIndices({ 0, 1, 3, 1, 2, 3 });
-    
-    rt.mesh = liTechAddResource(liMesh, liNew<liMesh>(geometry));
-
-    rt.tex = liTechAddResource(liTexture2D, liNew<liTexture2D>());
-    ubyte_t pixels[] = {255, 0, 0, 255,
-                        0, 255, 0, 255,
-                        0, 0, 255, 255};
-                        255, 255, 255, 255,
-    rt.tex->Load(pixels, 2, 2, 4);
-
-    {
-        liShaderFactory* factory = liNew<liShaderFactory>(shaderType_t::MAIN);
-        factory->Generate();
-
-        rt.program = liTechAddResource(liShaderProgram, liNew<liShaderProgram>());
-
-        liShader* vertex = liNew<liShader>(shaderDesignation_t::VERTEX);
-        vertex->Compile(factory->VertexCode());
-        rt.program->SetVertex(vertex);
-        vertex = liTechAddResource(liShader, vertex);
-
-        liShader* pixel = liNew<liShader>(shaderDesignation_t::PIXEL);
-        pixel->Compile(factory->PixelCode());
-        rt.program->SetVertex(pixel);
-        pixel = liTechAddResource(liShader, pixel);
-
-        liDelete(factory);
-        rt.program->Link(factory->Type());
-
-        rt.program->Bind();
-        liMatrix4f projection, view, model;
-        projection = liMatrix4f::Perspective(70.0f, (float)rt.width / (float)rt.height, -0.1f, 100000.0f);
-        rt.program->Load("projection", projection);
-        rt.program->Load("view", view);
-        rt.program->Load("model", model);
-    }
 
     return SDL_APP_CONTINUE;
 }
@@ -102,24 +50,12 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     rt.stopwatch->Begin();
     double deltaTime = rt.stopwatch->Seconds();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(0.25f, 0.25f, 0.25f, 1);
-    static float r, g, b ;
     rt.elapsed += rt.stopwatch->Seconds();
-    
-    rt.program->Bind();
-    rt.tex->Bind();
-    rt.program->Load("material.diffuse.usesTexture", true);
-    rt.program->Load("material.diffuse.mixValue", 0.5f);
-    rt.program->Load("material.diffuse.value", liVector4f(r, g, b, 1));
-    rt.mesh->Draw();
     
     rt.context->Swap();
     rt.mouse->Update();
     rt.keyboard->Update();
     rt.stopwatch->End();
-    r = 0.85f * sin(0.9f * rt.elapsed);
-    g = 0.25f * sin(0.9f * rt.elapsed);
-    b = 0.55f * sin(0.9f * rt.elapsed);
     return SDL_APP_CONTINUE;
 }
 
