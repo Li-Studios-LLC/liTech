@@ -1,11 +1,10 @@
-# Li Studios Game Starter Template
-![Logo](logos/SquareInverted.png)
+# liTech
+![Logo](Assets/Logos/SquareInverted.png)
 
 ## About
-A game starter template I made to make starting new projects easier.
 
 ## Building
-***Building this template requires a Windows system and CMake.***
+***Building this project requires a Windows system and CMake.***
 1. Generate the project files
 ```sh
 cmake -B build -S .
