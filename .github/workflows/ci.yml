@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          submodules: true
+
+      - name: Add msbuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Configure & Build
+        uses: threeal/cmake-action@v2.1.0
+        with:
+          build-dir: build
+          generator: Visual Studio 17 2022
