@@ -1,5 +1,6 @@
 # liTech
 ![Logo](Assets/Logos/SquareInverted.png)
+![liTechLogo](Assets/Logos/liTech.png)
 
 ## About
 
