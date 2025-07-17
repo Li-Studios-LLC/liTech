@@ -1,5 +1,5 @@
 #ifndef MATRICES_H
-#define MATRICS_H
+#define MATRICES_H
 #pragma once
 #include "Vectors.h"
 
