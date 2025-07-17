@@ -35,5 +35,4 @@ target_include_directories(liTech PUBLIC ${PROJECT_SOURCE_DIR}/LiDependencies/SD
 target_include_directories(liTech PUBLIC ${PROJECT_SOURCE_DIR}/LiDependencies/openal-soft)
 target_include_directories(liTech PUBLIC ${PROJECT_SOURCE_DIR}/LiDependencies/cglm/include)
 
-target_link_directories(liTech PUBLIC ${PROJECT_SOURCE_DIR}/LiDependencies/Lib)
 set_property(TARGET liTech PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
