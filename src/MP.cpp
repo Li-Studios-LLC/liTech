@@ -5,14 +5,14 @@
 #include <Engine/Framework/AssetManager.h>
 #include <Engine/Input/Keyboard.h>
 
-liVertexList vertices = {
+liVertexList testVertices = {
     liVertex(liVec3(-0.5f, -0.5f, 0.0f), liVec2(0.0f, 0.0f), liVec3(0, 0, 1)),
     liVertex(liVec3(0.5f, -0.5f, 0.0f), liVec2(1.0f, 0.0f), liVec3(0, 0, 1)),
     liVertex(liVec3(-0.5f, 0.5f, 0.0f), liVec2(0.0f, 1.0f), liVec3(0, 0, 1)),
     liVertex(liVec3(0.5f, 0.5f, 0.0f), liVec2(1.0f, 1.0f), liVec3(0, 0, 1))
 };
 
-liUIntBuffer indices = {
+liUIntBuffer testIndices = {
     0, 1, 2, 1, 2, 3
 };
 
@@ -22,8 +22,8 @@ MPGame::MPGame(gameContext_t context)
 
     this->actor = new liActor();
     this->mesh = new liMesh(4, 6);
-    mesh->UploadVertices(&vertices);
-    mesh->UploadIndices(&indices);
+    mesh->UploadVertices(&testVertices);
+    mesh->UploadIndices(&testIndices);
     Assets()->LoadAsset("TestMesh", mesh);
     this->material = new liMaterial(Assets()->FindAssetByName<liShaderProgram>("DefaultShaderProgram3D"));
     Assets()->LoadAsset("TestMaterial", material);
