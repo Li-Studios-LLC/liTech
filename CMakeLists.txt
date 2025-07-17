@@ -11,6 +11,9 @@ else()
     add_compile_definitions(_RELEASE RELEASE)
 endif()
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
+
 add_subdirectory(LiDependencies)
 
 file(GLOB_RECURSE SRCS src/*.cpp src/*.c)
@@ -20,21 +23,17 @@ add_executable(liTech)
 target_sources(liTech PUBLIC ${SRCS} ${HDRS})
 
 if(WIN32)
-    add_custom_command(TARGET liTech POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${PROJECT_SOURCE_DIR}/LiDependencies/Bin/SDL3.dll
-        $<TARGET_FILE_DIR:liTech>)
-
-    add_custom_command(TARGET liTech POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${PROJECT_SOURCE_DIR}/LiDependencies/Bin/OpenAL32.dll
-        $<TARGET_FILE_DIR:liTech>)
-
+    target_link_libraries(liTech opengl32)
     target_link_options(liTech PRIVATE "$<$<CONFIG:Release>:/SUBSYSTEM:WINDOWS>" "$<$<CONFIG:Debug>:/SUBSYSTEM:CONSOLE>")
 endif()
 
 target_precompile_headers(liTech PUBLIC src/pch.h)
-target_link_libraries(liTech LiDependencies SDL3 OpenAL32 opengl32)
-target_include_directories(liTech PUBLIC ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/LiDependencies/Include)
+target_link_libraries(liTech LiDependencies SDL3::SDL3 OpenAL::OpenAL)
+target_include_directories(liTech PUBLIC ${PROJECT_SOURCE_DIR}/src)
+# Vendors
+target_include_directories(liTech PUBLIC ${PROJECT_SOURCE_DIR}/LiDependencies/SDL/include)
+target_include_directories(liTech PUBLIC ${PROJECT_SOURCE_DIR}/LiDependencies/openal-soft)
+target_include_directories(liTech PUBLIC ${PROJECT_SOURCE_DIR}/LiDependencies/cglm/include)
+
 target_link_directories(liTech PUBLIC ${PROJECT_SOURCE_DIR}/LiDependencies/Lib)
 set_property(TARGET liTech PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
