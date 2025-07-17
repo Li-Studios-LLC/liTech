@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "MP.h"
+#include "Runtime.h"
 #include "imgui/imgui.h"
 #include <Engine/Graphics/RenderPass.h>
 #include <Engine/Framework/AssetManager.h>
@@ -16,7 +16,7 @@ liUIntBuffer testIndices = {
     0, 1, 2, 1, 2, 3
 };
 
-MPGame::MPGame(gameContext_t context)
+liRuntime::liRuntime(gameContext_t context)
     : liGame(context) {
     Setup();
 
@@ -38,20 +38,20 @@ MPGame::MPGame(gameContext_t context)
     material->SetPixelData(pixelData);
 }
 
-MPGame::~MPGame() {
+liRuntime::~liRuntime() {
 }
 
-void MPGame::Setup() {
+void liRuntime::Setup() {
     liGame::Setup();
 
     this->debugMenus = true;
 }
 
-void MPGame::Render() {
+void liRuntime::Render() {
     actor->Render();
 }
 
-void MPGame::Update(float deltaTime) {
+void liRuntime::Update(float deltaTime) {
     liKeyboard* keyboard = Keyboard();
 
     if(keyboard->IsButtonPressed(LI_KEY_KP_7)) {
@@ -59,7 +59,7 @@ void MPGame::Update(float deltaTime) {
     }
 }
 
-void MPGame::ImGui() {
+void liRuntime::ImGui() {
     if(debugMenus) {
         if(ImGui::Begin("Assets")) {
             ulong_t assetCount = Assets()->AssetCount();

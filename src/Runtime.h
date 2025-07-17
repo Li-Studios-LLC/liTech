@@ -1,16 +1,16 @@
-#ifndef MP_H
-#define MP_H
+#ifndef RUNTIME_H
+#define RUNTIME_H
 #pragma once
 #include <Engine/Framework/Game.h>
 #include <Engine/Framework/Material.h>
 #include <Engine/Framework/Scene.h>
 #include <Engine/Framework/MeshRenderer.h>
 
-class MPGame : public liGame {
+class liRuntime : public liGame {
 public:
-    MPGame(gameContext_t context);
-    MPGame(const MPGame&) = delete;
-    ~MPGame();
+    liRuntime(gameContext_t context);
+    liRuntime(const liRuntime&) = delete;
+    ~liRuntime();
 
     virtual void Setup() override;
     virtual void Render() override;

@@ -12,7 +12,7 @@
 #include <Engine/Graphics/ShaderProgram.h>
 #include "imgui/imgui_impl_sdl3.h"
 #include "imgui/imgui_impl_opengl3.h"
-#include "MP.h"
+#include "Runtime.h"
 
 static struct runtime_t {
     SDL_Window* window;
@@ -79,7 +79,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
         .post = rt.post,
         .assets = rt.asset
     };
-    rt.modes.push_back(new MPGame(context));
+    rt.modes.push_back(new liRuntime(context));
     rt.modeIndex = 0;
 
     return SDL_APP_CONTINUE;
