@@ -36,15 +36,17 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
 
     rt.width = 1280;
     rt.height = 800;
-    rt.window = SDL_CreateWindow("liTech", rt.width, rt.height, SDL_WINDOW_OPENGL);
+    rt.window = SDL_CreateWindow("liTech", rt.width, rt.height, SDL_WINDOW_OPENGL | SDL_WINDOW_HIGH_PIXEL_DENSITY);
+#if !(ANDROID || IOS)
     SDL_AddGamepadMappingsFromFile("./Assets/gamecontrollerdb.txt");
+#endif
     rt.elapsed = 0.0f;
     rt.keyboard = new liKeyboard();
     rt.mouse = new liMouse();
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
     rt.gl = SDL_GL_CreateContext(rt.window);
     SDL_GL_MakeCurrent(rt.window, rt.gl);
     gladLoadGLES2((GLADloadfunc)SDL_GL_GetProcAddress);
@@ -115,7 +117,7 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
 }
 
 SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event) {
-    ImGui_ImplSDL3_ProcessEvent(event);
+    //ImGui_ImplSDL3_ProcessEvent(event);
     switch (event->type) {
     case SDL_EVENT_QUIT:
         return SDL_APP_SUCCESS;
