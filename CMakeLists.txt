@@ -13,12 +13,6 @@ else()
     add_compile_definitions(_RELEASE RELEASE)
 endif()
 
-if(MSVC)
-    if(NOT CMAKE_GENERATOR STREQUAL "Ninja")
-        add_definitions(/MP)
-    endif()
-endif()
-
 add_subdirectory(LiDependencies)
 
 file(GLOB_RECURSE SRCS src/*.cpp src/*.c)
