@@ -37,9 +37,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     rt.width = 1280;
     rt.height = 800;
     rt.window = SDL_CreateWindow("liTech", rt.width, rt.height, SDL_WINDOW_OPENGL | SDL_WINDOW_HIGH_PIXEL_DENSITY);
-#if !(ANDROID || IOS)
     SDL_AddGamepadMappingsFromFile("./Assets/gamecontrollerdb.txt");
-#endif
     rt.elapsed = 0.0f;
     rt.keyboard = new liKeyboard();
     rt.mouse = new liMouse();
@@ -124,6 +122,10 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event) {
     case SDL_EVENT_MOUSE_MOTION:
         rt.mouse->x = event->motion.x;
         rt.mouse->y = event->motion.y;
+        return SDL_APP_CONTINUE;
+    case SDL_EVENT_FINGER_DOWN:
+    case SDL_EVENT_FINGER_UP:
+    case SDL_EVENT_FINGER_MOTION:
         return SDL_APP_CONTINUE;
     case SDL_EVENT_MOUSE_BUTTON_DOWN:
     case SDL_EVENT_MOUSE_BUTTON_UP:
