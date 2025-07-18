@@ -2,8 +2,6 @@ plugins {
      id 'com.android.application'
 }
 
-def buildWithCMake = true;
-
 android {
     namespace = "io.listudios.litech"
     compileSdkVersion 35
@@ -35,13 +33,10 @@ android {
             jniLibs.srcDir 'libs'
         }
         externalNativeBuild {
-            if (buildWithCMake) {
-                cmake {
-                    path '../../CMakeLists.txt'
-                }
+            cmake {
+                path '../../CMakeLists.txt'
             }
         }
-
     }
     lint {
         abortOnError = false
