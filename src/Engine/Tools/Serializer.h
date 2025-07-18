@@ -7,7 +7,6 @@ public:
     liSerializer();
     ~liSerializer();
 private:
-    std::stringstream ss;
 };
 
 #endif
