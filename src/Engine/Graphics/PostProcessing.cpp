@@ -29,8 +29,8 @@ liPostProcessing::liPostProcessing() {
     this->program = new liShaderProgram();
     this->renderShader = new liRenderShader();
     std::string vertexSource, pixelSource;
-    liFileIO::Read("./Assets/Shaders/final.vert", vertexSource);
-    liFileIO::Read("./Assets/Shaders/final.frag", pixelSource);
+    liFileIO::Read("Shaders/final.vert", vertexSource);
+    liFileIO::Read("Shaders/final.frag", pixelSource);
     renderShader->CompileVertex(vertexSource);
     renderShader->CompilePixel(pixelSource);
     

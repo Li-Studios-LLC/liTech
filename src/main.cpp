@@ -37,14 +37,14 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     rt.width = 1280;
     rt.height = 800;
     rt.window = SDL_CreateWindow("liTech", rt.width, rt.height, SDL_WINDOW_OPENGL | SDL_WINDOW_HIGH_PIXEL_DENSITY);
-    SDL_AddGamepadMappingsFromFile("./Assets/gamecontrollerdb.txt");
+    SDL_AddGamepadMappingsFromFile("gamecontrollerdb.txt");
     rt.elapsed = 0.0f;
     rt.keyboard = new liKeyboard();
     rt.mouse = new liMouse();
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
     rt.gl = SDL_GL_CreateContext(rt.window);
     SDL_GL_MakeCurrent(rt.window, rt.gl);
     gladLoadGLES2((GLADloadfunc)SDL_GL_GetProcAddress);
@@ -60,8 +60,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     {
         liRenderShader* shader3d = new liRenderShader();
         std::string vertexSource, pixelSource;
-        liFileIO::Read("./Assets/Shaders/standard.vert", vertexSource);
-        liFileIO::Read("./Assets/Shaders/standard.frag", pixelSource);
+        liFileIO::Read("Shaders/standard.vert", vertexSource);
+        liFileIO::Read("Shaders/standard.frag", pixelSource);
         shader3d->CompileVertex(vertexSource);
         shader3d->CompilePixel(pixelSource);
         rt.asset->LoadAsset("DefaultShader3D", shader3d);

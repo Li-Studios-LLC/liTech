@@ -29,6 +29,8 @@ endif()
 if(WIN32)
     target_link_libraries(${EXECUTABLE_NAME} opengl32)
     target_link_options(${EXECUTABLE_NAME} PRIVATE "$<$<CONFIG:Release>:/SUBSYSTEM:WINDOWS>" "$<$<CONFIG:Debug>:/SUBSYSTEM:CONSOLE>")
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    target_link_libraries(${EXECUTABLE_NAME} GL)
 endif()
 
 target_sources(${EXECUTABLE_NAME} PUBLIC ${SRCS} ${HDRS})

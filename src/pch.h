@@ -2,6 +2,12 @@
 #define PCH_H
 #pragma once
 
+#ifdef WIN32
+#define LI_ASSET_PATH "./Assets/"
+#elif ANDROID
+#define LI_ASSET_PATH ""
+#endif
+
 #define LI_ARRAYSIZE(arr) (sizeof(arr) / sizeof(*arr))
 #define LI_STRINGIFY(x) #x
 #define LI_BIT(x) (1 << x)
