@@ -18,6 +18,8 @@ static struct runtime_t {
     SDL_Window* window;
     SDL_GLContext gl;
     int width, height;
+    int renderWidth, renderHeight;
+    int displayWidth, displayHeight;
     liStopwatch stopwatch;
     float elapsed;
     liKeyboard* keyboard;
@@ -36,11 +38,18 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
 
     rt.width = 1280;
     rt.height = 800;
-    rt.window = SDL_CreateWindow("liTech", rt.width, rt.height, SDL_WINDOW_OPENGL | SDL_WINDOW_HIGH_PIXEL_DENSITY);
+    SDL_WindowFlags flags = SDL_WINDOW_OPENGL | SDL_WINDOW_HIGH_PIXEL_DENSITY;
+#if ANDROID
+    flags |= SDL_WINDOW_FULLSCREEN;
+#endif
+    rt.window = SDL_CreateWindow("liTech", rt.width, rt.height, flags);
     SDL_AddGamepadMappingsFromFile("gamecontrollerdb.txt");
     rt.elapsed = 0.0f;
     rt.keyboard = new liKeyboard();
     rt.mouse = new liMouse();
+    rt.renderWidth = 1280;
+    rt.renderHeight = 800;
+    SDL_GetWindowSizeInPixels(rt.window, &rt.displayWidth, &rt.displayHeight);
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -48,7 +57,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     rt.gl = SDL_GL_CreateContext(rt.window);
     SDL_GL_MakeCurrent(rt.window, rt.gl);
     gladLoadGLES2((GLADloadfunc)SDL_GL_GetProcAddress);
-    rt.renderPass = new liRenderPass(rt.width, rt.height, true);
+    rt.renderPass = new liRenderPass(rt.renderWidth, rt.renderHeight, true);
     rt.post = new liPostProcessing();
     rt.asset = new liAssetManager();
 
@@ -77,7 +86,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
         .mouse = rt.mouse,
         .renderPass = rt.renderPass,
         .post = rt.post,
-        .assets = rt.asset
+        .assets = rt.asset,
+        .aspectRatio = (float)rt.renderWidth / (float)rt.renderHeight
     };
     rt.modes.push_back(new liRuntime(context));
     rt.modeIndex = 0;
@@ -95,12 +105,12 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     ImGui::NewFrame();
 
     rt.renderPass->Begin(liColor(0.5f, 0.25f, 0.25f, 1.0f));
-
     rt.modes[rt.modeIndex]->Render();
     rt.modes[rt.modeIndex]->Update(deltaTime);
-
     rt.renderPass->End();
+
     glClear(GL_COLOR_BUFFER_BIT);
+    glViewport(0, 0, rt.displayWidth, rt.displayHeight);
     rt.post->Process(rt.renderPass);
 
     rt.modes[rt.modeIndex]->ImGui();

@@ -30,7 +30,7 @@ liRuntime::liRuntime(gameContext_t context)
     actor->AddComponent(new liMeshRenderer(mesh, material));
 
     vertexMaterialData_t vertData = { };
-    vertData.projection = liMat4::Perspective(70.0f, 1.6f, 0.1f, 1000.0f);
+    vertData.projection = liMat4::Perspective(70.0f, AspectRatio(), 0.1f, 1000.0f);
     vertData.model = liMat4::Translate(liVec3(0, 0, -1));
     material->SetVertexData(vertData);
     pixelMaterialData_t pixelData = { };

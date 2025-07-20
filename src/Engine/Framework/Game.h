@@ -14,6 +14,7 @@ struct gameContext_t {
     liRenderPass* renderPass;
     liPostProcessing* post;
     liAssetManager* assets;
+    float aspectRatio;
 };
 
 class liGame : public IRunnable {
@@ -26,16 +27,13 @@ public:
     virtual void Update(float deltaTime) override;
     virtual void ImGui() = 0;
 
-    inline liKeyboard* Keyboard() { return keyboard; }
-    inline liMouse* Mouse() { return mouse; }
-    inline liRenderPass* Pass() { return renderPass; }
-    inline liAssetManager* Assets() { return assets; }
+    inline liKeyboard* Keyboard() { return context.keyboard; }
+    inline liMouse* Mouse() { return context.mouse; }
+    inline liRenderPass* Pass() { return context.renderPass; }
+    inline liAssetManager* Assets() { return context.assets; }
+    inline float AspectRatio() const { return context.aspectRatio; }
 private:
-    liKeyboard* keyboard;
-    liMouse* mouse;
-    liRenderPass* renderPass;
-    liPostProcessing* post;
-    liAssetManager* assets;
+    gameContext_t context;
 };
 
 #endif

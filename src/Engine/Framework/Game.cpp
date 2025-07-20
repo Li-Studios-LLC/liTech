@@ -2,11 +2,7 @@
 #include "Game.h"
 
 liGame::liGame(gameContext_t context) {
-    this->keyboard = context.keyboard;
-    this->mouse = context.mouse;
-    this->assets = context.assets;
-    this->renderPass = context.renderPass;
-    this->post = context.post;
+    this->context = context;
 }
 
 void liGame::Setup() {
