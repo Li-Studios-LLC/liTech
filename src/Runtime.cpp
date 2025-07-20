@@ -67,7 +67,7 @@ void liRuntime::ImGui() {
             ImGui::BeginChild("Scrolling");
             for(ulong_t i = 0; i < assetCount; i++) {
                 liAsset* asset = Assets()->GetAssetByIndex(i);
-                ImGui::Text("%s, %s: %s", asset->Name().c_str(), asset->GUID(), typeid(*asset).name());
+                ImGui::Text("%s, %s: %s", asset->Name().c_str(), asset->GUID().id, typeid(*asset).name());
             }
             ImGui::EndChild();
             ImGui::End();
