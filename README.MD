@@ -4,8 +4,13 @@
 
 ## About
 
+## Cloning
+```sh
+git clone --recursive https://github.com/Li-Studios-LLC/liTech.git
+```
+
 ## Building
-***Building this project requires a Windows system and CMake.***
+***Building this project requires a Windows or Linux system and CMake.***
 1. Generate the project files
 ```sh
 cmake -B build -S .
