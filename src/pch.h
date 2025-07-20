@@ -2,9 +2,9 @@
 #define PCH_H
 #pragma once
 
-#ifdef WIN32 || __linux__
+#if defined(WIN32) || defined(__linux__)
 #define LI_ASSET_PATH "./Assets/"
-#elif ANDROID
+#elif defined(ANDROID)
 #define LI_ASSET_PATH ""
 #endif
 
