@@ -2,7 +2,7 @@
 #define PCH_H
 #pragma once
 
-#ifdef WIN32
+#ifdef WIN32 || __linux__
 #define LI_ASSET_PATH "./Assets/"
 #elif ANDROID
 #define LI_ASSET_PATH ""
