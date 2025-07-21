@@ -52,7 +52,6 @@ typedef unsigned int ghandle_t;
 #include <AL/al.h>
 #include <cglm/struct.h>
 #include <glad/gl.h>
-#include <nlohmann/json.hpp>
 
 typedef std::vector<bool> liBoolBuffer;
 typedef std::vector<int> liIntBuffer;

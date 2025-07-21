@@ -12,7 +12,9 @@
 #include <Engine/Graphics/ShaderProgram.h>
 #include "imgui/imgui_impl_sdl3.h"
 #include "imgui/imgui_impl_opengl3.h"
+// Modes
 #include "Runtime.h"
+#include "DataFileExplorer.h"
 
 static struct runtime_t {
     SDL_Window* window;
@@ -90,7 +92,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
         .aspectRatio = (float)rt.renderWidth / (float)rt.renderHeight
     };
     rt.modes.push_back(new liRuntime(context));
-    rt.modeIndex = 0;
+    rt.modes.push_back(new liDataFileExplorer(context));
+    rt.modeIndex = 1;
 
     return SDL_APP_CONTINUE;
 }
