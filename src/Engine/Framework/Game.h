@@ -14,6 +14,7 @@ struct gameContext_t {
     liRenderPass* renderPass;
     liPostProcessing* post;
     liAssetManager* assets;
+    int width, height;
     float aspectRatio;
 };
 
@@ -31,6 +32,8 @@ public:
     inline liMouse* Mouse() { return context.mouse; }
     inline liRenderPass* Pass() { return context.renderPass; }
     inline liAssetManager* Assets() { return context.assets; }
+    inline int Width() const { return context.width; }
+    inline int Height() const { return context.height; }
     inline float AspectRatio() const { return context.aspectRatio; }
 private:
     gameContext_t context;

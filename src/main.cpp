@@ -19,7 +19,6 @@ static struct runtime_t {
     SDL_GLContext gl;
     int width, height;
     int renderWidth, renderHeight;
-    int displayWidth, displayHeight;
     liStopwatch stopwatch;
     float elapsed;
     liKeyboard* keyboard;
@@ -49,7 +48,6 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     rt.mouse = new liMouse();
     rt.renderWidth = 1280;
     rt.renderHeight = 800;
-    SDL_GetWindowSizeInPixels(rt.window, &rt.displayWidth, &rt.displayHeight);
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -87,6 +85,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
         .renderPass = rt.renderPass,
         .post = rt.post,
         .assets = rt.asset,
+        .width = rt.width,
+        .height = rt.height,
         .aspectRatio = (float)rt.renderWidth / (float)rt.renderHeight
     };
     rt.modes.push_back(new liRuntime(context));
@@ -110,7 +110,9 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     rt.renderPass->End();
 
     glClear(GL_COLOR_BUFFER_BIT);
-    glViewport(0, 0, rt.displayWidth, rt.displayHeight);
+    int w, h;
+    SDL_GetWindowSizeInPixels(rt.window, &w, &h);
+    glViewport(0, 0, w, h);
     rt.post->Process(rt.renderPass);
 
     rt.modes[rt.modeIndex]->ImGui();
