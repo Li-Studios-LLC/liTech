@@ -3,9 +3,9 @@
 #pragma once
 
 #if defined(WIN32) || (defined(__linux__) && !defined(ANDROID))
-#define LI_ASSET_PATH "./Assets/"
+#define LI_ASSET_PATH std::string("./Assets/")
 #elif defined(ANDROID)
-#define LI_ASSET_PATH ""
+#define LI_ASSET_PATH std::string("")
 #endif
 
 #define LI_ARRAYSIZE(arr) (sizeof(arr) / sizeof(*arr))

@@ -66,11 +66,11 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
     // Default 3d assets
     {
         liRenderShader* shader3d = new liRenderShader();
-        std::string vertexSource, pixelSource;
-        liFileIO::Read("Shaders/standard.vert", vertexSource);
-        liFileIO::Read("Shaders/standard.frag", pixelSource);
-        shader3d->CompileVertex(vertexSource);
-        shader3d->CompilePixel(pixelSource);
+        liCharBuffer vertexSource, pixelSource;
+        liFileIO::Read(LI_ASSET_PATH + "Shaders/standard.vert", vertexSource);
+        liFileIO::Read(LI_ASSET_PATH + "Shaders/standard.frag", pixelSource);
+        shader3d->CompileVertex(vertexSource.data());
+        shader3d->CompilePixel(pixelSource.data());
         rt.asset->LoadAsset("DefaultShader3D", shader3d);
         
         liShaderProgram* program3d = new liShaderProgram();

@@ -7,6 +7,7 @@ public:
     liSerializer();
     ~liSerializer();
 private:
+    nlohmann::json j;
 };
 
 #endif

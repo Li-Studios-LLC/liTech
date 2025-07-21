@@ -4,8 +4,8 @@
 
 class liFileIO {
 public:
-    static bool Read(std::string path, std::string& output);
-    static bool Write(std::string path, const std::string& input);
+    static bool Read(std::string path, liCharBuffer& output);
+    static bool Write(std::string path, const liCharBuffer& input);
 };
 
 #endif

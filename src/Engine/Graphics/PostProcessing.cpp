@@ -28,11 +28,11 @@ liPostProcessing::liPostProcessing() {
     
     this->program = new liShaderProgram();
     this->renderShader = new liRenderShader();
-    std::string vertexSource, pixelSource;
-    liFileIO::Read("Shaders/final.vert", vertexSource);
-    liFileIO::Read("Shaders/final.frag", pixelSource);
-    renderShader->CompileVertex(vertexSource);
-    renderShader->CompilePixel(pixelSource);
+    liCharBuffer vertexSource, pixelSource;
+    liFileIO::Read(LI_ASSET_PATH + "Shaders/final.vert", vertexSource);
+    liFileIO::Read(LI_ASSET_PATH + "Shaders/final.frag", pixelSource);
+    renderShader->CompileVertex(vertexSource.data());
+    renderShader->CompilePixel(pixelSource.data());
     
     this->renderShader->Attach(program);
     this->program->Link({ { 0, "position" }, { 1, "texCoord" } });
