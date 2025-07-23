@@ -20,4 +20,5 @@ liCharBuffer liDataFile::ToBuffer() const {
 
 void liDataFile::_CreateHeader() {
     std::memset((void*)&header, 0, sizeof(dataFileHeader_t));
+    std::strcpy(header.signature, LI_DATA_FILE_SIGNATURE);
 }

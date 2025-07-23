@@ -1,7 +1,7 @@
 #define SDL_MAIN_USE_CALLBACKS
 #include <SDL3/SDL_main.h>
 #include "pch.h"
-#include <Engine/Tools/FileIO.h>
+#include <Engine/Util/FileIO.h>
 #include <Engine/Framework/Stopwatch.h>
 #include <Engine/Input/Keyboard.h>
 #include <Engine/Input/Mouse.h>
@@ -14,7 +14,7 @@
 #include "imgui/imgui_impl_opengl3.h"
 // Modes
 #include "Runtime.h"
-#include "DataFileExplorer.h"
+#include "Tools/Editor.h"
 
 static struct runtime_t {
     SDL_Window* window;
@@ -92,7 +92,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv) {
         .aspectRatio = (float)rt.renderWidth / (float)rt.renderHeight
     };
     rt.modes.push_back(new liRuntime(context));
-    rt.modes.push_back(new liDataFileExplorer(context));
+    rt.modes.push_back(new liEditor(context));
     rt.modeIndex = 1;
 
     return SDL_APP_CONTINUE;

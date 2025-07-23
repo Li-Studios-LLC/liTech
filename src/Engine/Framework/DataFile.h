@@ -2,6 +2,8 @@
 #define DATAFILE_H
 #pragma once
 
+#define LI_DATA_FILE_SIGNATURE "LIDF"
+
 struct dataFileHeader_t {
     char signature[4];
     ulong_t timestamp;
