@@ -6,8 +6,8 @@ liMaterial::liMaterial(liShaderProgram* program) {
     this->program = program;
     this->vertexUniform = new liUniformBuffer(sizeof(vertexMaterialData_t));
     this->pixelUniform = new liUniformBuffer(sizeof(pixelMaterialData_t));
-    std::memset((void*)&vertexData, 0, sizeof(vertexMaterialData_t));
-    std::memset((void*)&pixelData, 0, sizeof(pixelMaterialData_t));
+    memset((void*)&vertexData, 0, sizeof(vertexMaterialData_t));
+    memset((void*)&pixelData, 0, sizeof(pixelMaterialData_t));
 }
 
 liMaterial::~liMaterial() {
